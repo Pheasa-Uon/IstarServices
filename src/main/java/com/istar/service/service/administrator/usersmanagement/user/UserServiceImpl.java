@@ -46,7 +46,10 @@ public class UserServiceImpl implements UserService {
             user.setUserCode(String.format("%05d", nextCode));
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Check if password is already encoded
+        if (!user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
