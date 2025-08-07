@@ -6,6 +6,7 @@ import com.istar.service.security.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*") // or configure via CorsConfig
+@Slf4j
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -58,6 +60,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         }
         System.out.println("User: " + userDetails.getUsername());
+        log.info("User {} logged in", userDetails.getUsername());
         //System.out.println("Token: " + token);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }

@@ -23,12 +23,14 @@ public class UserRoleController {
     @PostMapping("/assign")
     public ResponseEntity<UserRole> assignRole(@RequestBody RoleAssignmentRequest request) {
         UserRole userRole = userRoleService.assignRoleToUser(request.userId, request.roleId);
+        System.out.println("Assigned role: " + userRole.getRole().getName() + " to user: " + userRole.getUser().getUsername());
         return ResponseEntity.ok(userRole);
     }
 
     @PostMapping("/remove")
     public ResponseEntity<String> removeRole(@RequestBody RoleAssignmentRequest request) {
         userRoleService.removeRoleFromUser(request.userId, request.roleId);
+        System.out.println("Removed role: " + request.roleId + " from user: " + request.userId);
         return ResponseEntity.ok("Role removed from user");
     }
 
