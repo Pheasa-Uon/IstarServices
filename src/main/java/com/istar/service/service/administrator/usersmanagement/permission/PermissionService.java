@@ -31,9 +31,11 @@ public class PermissionService {
         Map<String, UserFeaturePermissionDTO> merged = new HashMap<>();
 
         for (RoleFeaturePermission p : permissions) {
+            Long featureId = p.getFeature().getId();
             String code = p.getFeature().getCode();
 
             UserFeaturePermissionDTO dto = merged.computeIfAbsent(code, k -> new UserFeaturePermissionDTO(
+                    featureId,
                     code, false, false, false, false, false, false,
                     false, false, false, false, false, false, false
             ));

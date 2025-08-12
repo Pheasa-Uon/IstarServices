@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserFeaturePermissionDTO {
+    private long featureId;
     private String code;
     private Boolean isSearch;
     private Boolean isAdd;
