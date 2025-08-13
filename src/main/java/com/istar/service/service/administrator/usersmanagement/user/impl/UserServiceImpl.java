@@ -1,4 +1,4 @@
-package com.istar.service.service.administrator.usersmanagement.user;
+package com.istar.service.service.administrator.usersmanagement.user.impl;
 
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
@@ -9,6 +9,7 @@ import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePer
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 import com.istar.service.repository.administrator.usersmanagement.user.UserRepository;
 import com.istar.service.security.JwtUtils;
+import com.istar.service.service.administrator.usersmanagement.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
