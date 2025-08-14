@@ -1,60 +1,54 @@
 package com.istar.service.service.administrator.usersmanagement.permission;
 
-import com.istar.service.dto.administrator.usersmanagement.permission.UserFeaturePermissionDTO;
+import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
-import com.istar.service.repository.administrator.usersmanagement.user.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class PermissionService {
 
-    private final UserRoleRepository userRoleRepository;
-    private final RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+    private final RoleFeaturePermissionRepository rfpRepo;
 
-    public List<UserFeaturePermissionDTO> getUserPermissions(Long userId) {
-        List<Long> roleIds = userRoleRepository.findByUserIdAndBStatusTrue(userId)
-                .stream().map(ur -> ur.getRole().getId()).collect(Collectors.toList());
+    public Map<String, PermissionFlags> mergeByFeature(Set<Role> roles) {
+        Map<String, PermissionFlags> map = new HashMap<>();
 
-        if (roleIds.isEmpty()) {
-            return Collections.emptyList();
+        // Convert role set to a list of IDs
+        List<Long> roleIds = roles.stream()
+                .map(Role::getId)
+                .toList();
+
+        // Fetch RoleFeaturePermission entries
+        for (RoleFeaturePermission rfp : rfpRepo.findByRoleIdInAndBStatusIsTrue(roleIds)) {
+            String feature = rfp.getFeature().getCode();
+
+            PermissionFlags flags = new PermissionFlags(
+                    rfp.getIsSearch(),
+                    rfp.getIsViewed(),
+                    rfp.getIsAdd(),
+                    rfp.getIsEdit(),
+                    rfp.getIsDeleted()
+            );
+
+            // Merge permissions for the same feature
+            map.merge(feature, flags, PermissionFlags::or);
         }
 
-        List<RoleFeaturePermission> permissions = roleFeaturePermissionRepository
-                .findByRoleIdInAndBStatusIsTrue(roleIds);
+        return map;
+    }
 
-        Map<String, UserFeaturePermissionDTO> merged = new HashMap<>();
-
-        for (RoleFeaturePermission p : permissions) {
-            Long featureId = p.getFeature().getId();
-            String code = p.getFeature().getCode();
-
-            UserFeaturePermissionDTO dto = merged.computeIfAbsent(code, k -> new UserFeaturePermissionDTO(
-                    featureId,
-                    code, false, false, false, false, false, false,
-                    false, false, false, false, false, false, false
-            ));
-
-            dto.setIsSearch(dto.getIsSearch() || Boolean.TRUE.equals(p.getIsSearch()));
-            dto.setIsAdd(dto.getIsAdd() || Boolean.TRUE.equals(p.getIsAdd()));
-            dto.setIsViewed(dto.getIsViewed() || Boolean.TRUE.equals(p.getIsViewed()));
-            dto.setIsEdit(dto.getIsEdit() || Boolean.TRUE.equals(p.getIsEdit()));
-            dto.setIsApprove(dto.getIsApprove() || Boolean.TRUE.equals(p.getIsApprove()));
-            dto.setIsReject(dto.getIsReject() || Boolean.TRUE.equals(p.getIsReject()));
-            dto.setIsDeleted(dto.getIsDeleted() || Boolean.TRUE.equals(p.getIsDeleted()));
-            dto.setIsSave(dto.getIsSave() || Boolean.TRUE.equals(p.getIsSave()));
-            dto.setIsClear(dto.getIsClear() || Boolean.TRUE.equals(p.getIsClear()));
-            dto.setIsCancel(dto.getIsCancel() || Boolean.TRUE.equals(p.getIsCancel()));
-            dto.setIsProcess(dto.getIsProcess() || Boolean.TRUE.equals(p.getIsProcess()));
-            dto.setIsImport(dto.getIsImport() || Boolean.TRUE.equals(p.getIsImport()));
-            dto.setIsExport(dto.getIsExport() || Boolean.TRUE.equals(p.getIsExport()));
-        }
-
-        return new ArrayList<>(merged.values());
+    public List<String> toAuthorities(Map<String, PermissionFlags> map) {
+        List<String> authorities = new ArrayList<>();
+        map.forEach((feature, flags) -> {
+            if (flags.search()) authorities.add("FEATURE" + feature + ".search");
+            if (flags.view()) authorities.add("FEATURE" + feature + ".view");
+            if (flags.add()) authorities.add("FEATURE" + feature + ".add");
+            if (flags.edit()) authorities.add("FEATURE" + feature + ".edit");
+            if (flags.delete()) authorities.add("FEATURE" + feature + ".delete");
+        });
+        return authorities;
     }
 }

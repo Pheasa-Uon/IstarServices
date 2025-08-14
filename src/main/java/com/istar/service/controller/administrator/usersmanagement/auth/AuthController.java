@@ -3,6 +3,8 @@ package com.istar.service.controller.administrator.usersmanagement.auth;
 import com.istar.service.entity.administrator.usersmanagement.user.User;
 import com.istar.service.repository.administrator.usersmanagement.user.UserRepository;
 import com.istar.service.security.JwtUtils;
+import com.istar.service.service.administrator.usersmanagement.permission.PermissionFlags;
+import com.istar.service.service.administrator.usersmanagement.permission.PermissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -11,13 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -28,13 +30,16 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
+    private final PermissionService permissionService;
 
     public AuthController(AuthenticationManager authenticationManager,
                           JwtUtils jwtUtils,
-                          UserRepository userRepository) {
+                          UserRepository userRepository,
+                          PermissionService permissionService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.userRepository = userRepository;
+        this.permissionService = permissionService;
     }
 
     @PostMapping("/login")
@@ -48,7 +53,11 @@ public class AuthController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
+        User users = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+        Map<String, PermissionFlags> marged = permissionService.mergeByFeature(users.getRoles());
+        List<String> authorities = permissionService.toAuthorities(marged);
+
+        String token = jwtUtils.generateJwtToken(userDetails.getUsername(),authorities);
 
         Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
         if (optionalUser.isPresent()) {
@@ -64,6 +73,13 @@ public class AuthController {
         //System.out.println("Token: " + token);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
+
+    @GetMapping("/me/permissions")
+    public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+        return permissionService.mergeByFeature(user.getRoles());
+    }
+
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader,
@@ -118,5 +134,21 @@ public class AuthController {
 
         public String getPassword() { return password; }
         public void setPassword(String password) { this.password = password; }
+    }
+
+    public static class LoginResponse {
+        private String token;
+        private String username;
+
+        public String getToken() {
+            return token;
+        }
+        public void setToken(String token) {
+            this.token = token;
+        }
+        public String getUsername() {
+            return username;
+        }
+        public void setUsername(String username) { this.username = username;}
     }
 }

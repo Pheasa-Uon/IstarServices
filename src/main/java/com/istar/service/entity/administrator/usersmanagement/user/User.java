@@ -3,7 +3,9 @@ package com.istar.service.entity.administrator.usersmanagement.user;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "sys_users")
@@ -16,9 +18,6 @@ public class User {
     @Column(name = "user_code", length = 5, unique = true, nullable = false)
     private String userCode;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserRole> userRoles;
-
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -28,11 +27,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    @Column(name = "login_token")
+    @Column(name = "login_token", length = 500)
     private String loginToken;
 
     @Column(name = "last_login_at")
@@ -59,6 +54,10 @@ public class User {
     @Column(length = 500)
     private String description;
 
+    @OneToMany
+    @JoinTable(name = "sys_users_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
     // Default constructor
     public User() {
         this.createdAt = LocalDateTime.now();
@@ -73,14 +72,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public String getUserCode() {
@@ -187,6 +178,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     // Optional: update updatedAt on entity update

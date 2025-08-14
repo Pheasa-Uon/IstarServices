@@ -13,9 +13,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username); // ✅ safe Optional
-    boolean existsByUsername(String username);
-    boolean existsByEmail(String email);
-    Optional<User> findByLoginToken(String loginToken);
     List<User> findBybStatusTrue();
 
     @Query("SELECT u FROM User u WHERE u.bStatus = true AND " +
@@ -25,6 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "LOWER(u.email) LIKE LOWER(CONCAT('%', :keyword, '%'))" +
             ")")
     List<User> searchActiveUsersByKeyword(@Param("keyword") String keyword);
+
 
 
     @Query("SELECT MAX(r.userCode) FROM User r")

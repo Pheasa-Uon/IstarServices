@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "sys_role_feature_permissions")
+@Table(name = "sys_role_feature_permissions",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "feature_id"}))
 @Data
 public class RoleFeaturePermission {
 
@@ -18,12 +19,12 @@ public class RoleFeaturePermission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @ManyToOne(optional = false)
+    //@JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "feature_id", nullable = false)
+    @ManyToOne(optional = false)
+    //@JoinColumn(name = "feature_id", nullable = false)
     private Feature feature;
 
     private Boolean isSearch = false;

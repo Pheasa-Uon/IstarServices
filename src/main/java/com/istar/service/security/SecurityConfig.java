@@ -62,6 +62,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/logout").permitAll()
+                        .requestMatchers("/api/auth/me/permissions").authenticated()
 
                         // user
                         .requestMatchers("/api/users/**").permitAll()
@@ -80,9 +81,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/permissions/**").permitAll()
                         .requestMatchers("/api/permissions/role/**").permitAll()
                         .requestMatchers("/api/features/treetable/**").permitAll()
-
-                        .requestMatchers("/api/user-permissions/**").permitAll()
-                        .requestMatchers("/api/user-permissions/me").permitAll()
 
                         .anyRequest().authenticated()
                 )
