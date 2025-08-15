@@ -27,6 +27,23 @@ public class Feature {
     private String icon;
     private Boolean bStatus;
 
+    @Column(length = 500)
+    private String description;
+
+    private boolean isSearch = true;
+    private boolean isAdd = true;
+    private boolean isViewed = true;
+    private boolean isEdit = true;
+    private boolean isApprove = true;
+    private boolean isReject = true;
+    private boolean isDeleted = true;
+    private boolean isSave = true;
+    private boolean isClear = true;
+    private boolean isCancel = true;
+    private boolean isProcess = true;
+    private boolean isImport = true;
+    private boolean isExport = true;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     @JsonBackReference
@@ -135,4 +152,38 @@ public class Feature {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public boolean isSearch() {
+        return isSearch;
+    }
+    public void setSearch(boolean search) {
+        isSearch = search;
+    }
+    public boolean isAdd() {
+        return isAdd;
+    }
+    public void setAdd(boolean add) {
+        isAdd = add;
+    }
+    public boolean isViewed() { return isViewed; }
+    public void setViewed(boolean viewed) { isViewed = viewed; }
+    public boolean isEdit() { return isEdit; }
+    public void setEdit(boolean edit) { isEdit = edit; }
+    public boolean isApprove() { return isApprove; }
+    public void setApprove(boolean approve) { isApprove = approve; }
+    public boolean isReject() { return isReject; }
+    public void setReject(boolean reject) { isReject = reject; }
+    public boolean isDeleted() { return isDeleted; }
+    public void setDeleted(boolean deleted) { isDeleted = deleted; }
+    public boolean isSave() { return isSave; }
+    public void setSave(boolean save) { isSave = save; }
+    public boolean isClear() { return isClear; }
+    public void setClear(boolean clear) { isClear = clear; }
+    public boolean isCancel() { return isCancel; }
+    public void setCancel(boolean cancel) { isCancel = cancel; }
+    public boolean isProcess() { return isProcess; }
+    public void setProcess(boolean process) { isProcess = process; }
+    public boolean isImport() { return isImport; }
+    public void setImport(boolean _import) { isImport = _import; }
+    public boolean isExport() { return isExport; }
 }

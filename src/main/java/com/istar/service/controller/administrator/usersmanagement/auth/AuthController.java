@@ -74,10 +74,28 @@ public class AuthController {
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
 
+//    @GetMapping("/me/permissions")
+//    public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
+//        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+//        return permissionService.mergeByFeature(user.getRoles());
+//    }
+
     @GetMapping("/me/permissions")
     public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
-        return permissionService.mergeByFeature(user.getRoles());
+        User user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        boolean isAdmin = user.isAdmin();
+
+        if ( isAdmin == true || user.getUsername().equals("admin")) {
+            // Admin gets all permissions
+            System.out.println("Admin permissions...");
+            return permissionService.getAllPermissions();
+        } else {
+            // Normal user gets only merged permissions from their roles
+            System.out.println("User permissions...");
+            return permissionService.mergeByFeature(user.getRoles());
+        }
     }
 
 

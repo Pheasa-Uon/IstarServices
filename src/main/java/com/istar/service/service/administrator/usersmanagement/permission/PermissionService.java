@@ -1,7 +1,9 @@
 package com.istar.service.service.administrator.usersmanagement.permission;
 
+import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
+import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,9 @@ import java.util.*;
 public class PermissionService {
 
     private final RoleFeaturePermissionRepository rfpRepo;
+    private final FeatureRepository featureRepository;
 
+    // Return merged permissions for a user's roles
     public Map<String, PermissionFlags> mergeByFeature(Set<Role> roles) {
         Map<String, PermissionFlags> map = new HashMap<>();
 
@@ -46,6 +50,35 @@ public class PermissionService {
         }
 
         return map;
+    }
+
+    // Return all permissions (full access for admin)
+    public Map<String, PermissionFlags> getAllPermissions() {
+        Map<String, PermissionFlags> all = new HashMap<>();
+
+        // Fetch all features from DB
+        List<Feature> features = featureRepository.findAll();
+
+        for (Feature feature : features) {
+            // Here we read flags from Feature entity instead of hardcoding true
+            all.put(feature.getCode(), new PermissionFlags(
+                    feature.isSearch(),
+                    feature.isAdd(),
+                    feature.isViewed(),
+                    feature.isEdit(),
+                    feature.isApprove(),
+                    feature.isReject(),
+                    feature.isDeleted(),
+                    feature.isSave(),
+                    feature.isClear(),
+                    feature.isCancel(),
+                    feature.isProcess(),
+                    feature.isImport(),
+                    feature.isExport()
+            ));
+        }
+
+        return all;
     }
 
     public List<String> toAuthorities(Map<String, PermissionFlags> map) {
