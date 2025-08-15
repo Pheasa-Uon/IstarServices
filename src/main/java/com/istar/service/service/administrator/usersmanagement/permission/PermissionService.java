@@ -27,10 +27,18 @@ public class PermissionService {
 
             PermissionFlags flags = new PermissionFlags(
                     rfp.getIsSearch(),
-                    rfp.getIsViewed(),
                     rfp.getIsAdd(),
+                    rfp.getIsViewed(),
                     rfp.getIsEdit(),
-                    rfp.getIsDeleted()
+                    rfp.getIsApprove(),
+                    rfp.getIsReject(),
+                    rfp.getIsDeleted(),
+                    rfp.getIsSave(),
+                    rfp.getIsClear(),
+                    rfp.getIsCancel(),
+                    rfp.getIsProcess(),
+                    rfp.getIsImport(),
+                    rfp.getIsExport()
             );
 
             // Merge permissions for the same feature
@@ -47,7 +55,7 @@ public class PermissionService {
             if (flags.view()) authorities.add("FEATURE" + feature + ".view");
             if (flags.add()) authorities.add("FEATURE" + feature + ".add");
             if (flags.edit()) authorities.add("FEATURE" + feature + ".edit");
-            if (flags.delete()) authorities.add("FEATURE" + feature + ".delete");
+            if (flags.deleted()) authorities.add("FEATURE" + feature + ".deleted");
         });
         return authorities;
     }
