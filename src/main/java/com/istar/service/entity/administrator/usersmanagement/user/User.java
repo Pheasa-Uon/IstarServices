@@ -27,7 +27,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "login_token", length = 500)
+    @Column(name = "login_token", length = 1000)
     private String loginToken;
 
     @Column(name = "last_login_at")

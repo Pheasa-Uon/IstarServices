@@ -52,10 +52,18 @@ public class PermissionService {
         List<String> authorities = new ArrayList<>();
         map.forEach((feature, flags) -> {
             if (flags.search()) authorities.add("FEATURE" + feature + ".search");
-            if (flags.view()) authorities.add("FEATURE" + feature + ".view");
             if (flags.add()) authorities.add("FEATURE" + feature + ".add");
+            if (flags.view()) authorities.add("FEATURE" + feature + ".view");
             if (flags.edit()) authorities.add("FEATURE" + feature + ".edit");
+            if (flags.approve()) authorities.add("FEATURE" + feature + ".approve");
+            if (flags.reject()) authorities.add("FEATURE" + feature + ".reject");
             if (flags.deleted()) authorities.add("FEATURE" + feature + ".deleted");
+            if (flags.save()) authorities.add("FEATURE" + feature + ".save");
+            if (flags.clear()) authorities.add("FEATURE" + feature + ".clear");
+            if (flags.cancel()) authorities.add("FEATURE" + feature + ".cancel");
+            if (flags.process()) authorities.add("FEATURE" + feature + ".process");
+            if (flags.imported() ) authorities.add("FEATURE" + feature + ".imported");
+            if (flags.exported() ) authorities.add("FEATURE" + feature + ".exported");
         });
         return authorities;
     }
