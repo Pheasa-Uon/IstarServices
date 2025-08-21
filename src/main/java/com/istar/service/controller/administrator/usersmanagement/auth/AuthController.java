@@ -53,11 +53,12 @@ public class AuthController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        User users = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
-        Map<String, PermissionFlags> marged = permissionService.mergeByFeature(users.getRoles());
-        List<String> authorities = permissionService.toAuthorities(marged);
+//        User users = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+//        Map<String, PermissionFlags> marged = permissionService.mergeByFeature(users.getRoles());
+//        List<String> authorities = permissionService.toAuthorities(marged);
 
-        String token = jwtUtils.generateJwtToken(userDetails.getUsername(),authorities);
+        //String token = jwtUtils.generateJwtToken(userDetails.getUsername(),authorities);
+        String token = jwtUtils.generateJwtToken(userDetails.getUsername());
 
         Optional<User> optionalUser = userRepository.findByUsername(userDetails.getUsername());
         if (optionalUser.isPresent()) {
@@ -68,7 +69,7 @@ public class AuthController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
         }
-        System.out.println("User: " + userDetails.getUsername());
+        System.out.println("User login by: " + userDetails.getUsername());
         log.info("User {} logged in", userDetails.getUsername());
         //System.out.println("Token: " + token);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
