@@ -1,9 +1,9 @@
-package com.istar.service.service.administrator.usersmanagement.permission.impl;
+package com.istar.service.service.administrator.feature.impl;
 
 import com.istar.service.dto.administrator.usersmanagement.permission.FeatureTreeDTO;
 import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
 import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.FeatureService;
+import com.istar.service.service.administrator.feature.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

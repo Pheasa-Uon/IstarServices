@@ -1,11 +1,9 @@
-package com.istar.service.controller.administrator.usersmanagement.permission;
+package com.istar.service.controller.administrator.feature;
 
 import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
-import com.istar.service.service.administrator.usersmanagement.permission.FeatureService;
+import com.istar.service.service.administrator.feature.FeatureService;
 //import com.istar.service.service.administrator.usersmanagement.permission.PermissionService;
-import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
 import com.istar.service.dto.administrator.usersmanagement.permission.FeatureTreeDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +34,7 @@ public class FeatureController {
         return ResponseEntity.ok(featureService.createFeature(feature));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Feature> updateFeature(@PathVariable Long id, @RequestBody Feature feature) {
         return ResponseEntity.ok(featureService.updateFeature(id, feature));
     }

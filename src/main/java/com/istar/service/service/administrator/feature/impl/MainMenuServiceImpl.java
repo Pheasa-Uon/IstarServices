@@ -1,15 +1,15 @@
-package com.istar.service.service.administrator.usersmanagement.permission.impl;
+package com.istar.service.service.administrator.feature.impl;
 
-import com.istar.service.dto.administrator.usersmanagement.permission.FeatureTreeDTO;
 import com.istar.service.dto.administrator.usersmanagement.permission.MainMenuTreeDTO;
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
 import com.istar.service.entity.administrator.usersmanagement.permission.MainMenu;
 import com.istar.service.repository.administrator.usersmanagement.permission.MainMenuRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.MainMenuService;
+import com.istar.service.service.administrator.feature.MainMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,7 +20,7 @@ public class MainMenuServiceImpl implements MainMenuService {
 
     public MainMenuServiceImpl() {}
 
-    public List<MainMenuTreeDTO> getAllMainMenus() {
+    public List<MainMenuTreeDTO> getAllMainMenuTree() {
         List<MainMenu> mainMenus = mainMenuRepository.findByParentIsNull();
         return mainMenus.stream().map(this::convertToTreeDTO).collect(Collectors.toList());
     }
@@ -41,5 +41,36 @@ public class MainMenuServiceImpl implements MainMenuService {
             dto.setChildren(childDTOs);
         }
         return dto;
+    }
+
+    public List<MainMenu> getAllMainMenu(){return mainMenuRepository.findAll();}
+
+    public MainMenu createdMainMenu(MainMenu mainMenu){
+        mainMenu.setCreatedAt(LocalDateTime.now());
+        mainMenu.setUpdatedAt(LocalDateTime.now());
+        mainMenu.setBStatus(true);
+
+        return mainMenuRepository.save(mainMenu);
+    }
+
+    public MainMenu updatedMainMenu(Long id,MainMenu updated){
+        return mainMenuRepository.findById(id).map(mainMenu -> {
+            mainMenu.setCode(updated.getCode());
+            mainMenu.setName(updated.getName());
+            mainMenu.setIcon(updated.getIcon());
+            mainMenu.setRoutePath(updated.getRoutePath());
+            mainMenu.setParent(updated.getParent());
+            mainMenu.setUpdatedAt(LocalDateTime.now());
+            return mainMenuRepository.save(mainMenu);
+        }).orElseThrow(() -> new RuntimeException("Main Menu is not found with ID " + id));
+
+    }
+
+    public void deletedMainMenu(Long id){
+        mainMenuRepository.deleteById(id);
+    }
+
+    public Optional<MainMenu> getMainMenuById(Long id) {
+        return mainMenuRepository.findById(id);
     }
 }

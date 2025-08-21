@@ -26,7 +26,7 @@ public class MainMenu {
     private String code;
     @Column(name = "main_menu_name", unique = true, nullable = false, length = 250)
     private String name;
-    @Column(name = "route_path", nullable = false, length = 250)
+    @Column(name = "route_path", length = 250)
     private String routePath;
     @Column(name = "main_menu_icon", nullable = false, length = 250)
     private String icon;
@@ -38,7 +38,7 @@ public class MainMenu {
     private LocalDateTime createdAt = LocalDateTime.now();
     @Column(name = "updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
-    @Column(name = "descriptions", nullable = false, length = 500)
+    @Column(name = "descriptions", length = 500)
     private String description;
 
     @ManyToOne
