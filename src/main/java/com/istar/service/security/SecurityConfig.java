@@ -83,6 +83,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/features/treetable/**").permitAll()
 
                         .requestMatchers("/api/mainmenu/**").permitAll()
+                        .requestMatchers("/api/mainmenu/treetable/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
