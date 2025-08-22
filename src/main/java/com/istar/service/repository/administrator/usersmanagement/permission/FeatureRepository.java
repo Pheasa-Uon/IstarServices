@@ -1,6 +1,6 @@
 package com.istar.service.repository.administrator.usersmanagement.permission;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
+import com.istar.service.entity.administrator.feature.Feature;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

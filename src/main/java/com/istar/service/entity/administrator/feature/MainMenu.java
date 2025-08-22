@@ -1,4 +1,4 @@
-package com.istar.service.entity.administrator.usersmanagement.permission;
+package com.istar.service.entity.administrator.feature;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

@@ -1,6 +1,6 @@
 package com.istar.service.controller.administrator.feature;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
+import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.service.administrator.feature.FeatureService;
 //import com.istar.service.service.administrator.usersmanagement.permission.PermissionService;
 import com.istar.service.dto.administrator.feature.FeatureTreeDTO;

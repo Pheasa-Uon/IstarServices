@@ -1,7 +1,7 @@
 package com.istar.service.service.administrator.feature;
 
 import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
-import com.istar.service.entity.administrator.usersmanagement.permission.MainMenu;
+import com.istar.service.entity.administrator.feature.MainMenu;
 
 import java.util.List;
 import java.util.Optional;

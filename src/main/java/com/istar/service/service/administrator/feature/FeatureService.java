@@ -1,6 +1,6 @@
 package com.istar.service.service.administrator.feature;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
+import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.dto.administrator.feature.FeatureTreeDTO;
 
 import java.util.List;

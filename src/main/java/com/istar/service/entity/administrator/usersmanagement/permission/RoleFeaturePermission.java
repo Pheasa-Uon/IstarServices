@@ -1,10 +1,9 @@
 package com.istar.service.entity.administrator.usersmanagement.permission;
 
 
+import com.istar.service.entity.administrator.feature.Feature;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 

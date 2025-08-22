@@ -1,6 +1,6 @@
 package com.istar.service.service.administrator.usersmanagement.permission;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
+import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;

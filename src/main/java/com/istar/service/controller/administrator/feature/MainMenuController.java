@@ -1,7 +1,7 @@
 package com.istar.service.controller.administrator.feature;
 
 import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
-import com.istar.service.entity.administrator.usersmanagement.permission.MainMenu;
+import com.istar.service.entity.administrator.feature.MainMenu;
 import com.istar.service.service.administrator.feature.MainMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
