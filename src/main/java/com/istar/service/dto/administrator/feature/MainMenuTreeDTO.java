@@ -1,4 +1,4 @@
-package com.istar.service.dto.administrator.usersmanagement.permission;
+package com.istar.service.dto.administrator.feature;
 
 import java.util.ArrayList;
 import java.util.List;

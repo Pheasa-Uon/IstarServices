@@ -3,7 +3,7 @@ package com.istar.service.controller.administrator.feature;
 import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
 import com.istar.service.service.administrator.feature.FeatureService;
 //import com.istar.service.service.administrator.usersmanagement.permission.PermissionService;
-import com.istar.service.dto.administrator.usersmanagement.permission.FeatureTreeDTO;
+import com.istar.service.dto.administrator.feature.FeatureTreeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

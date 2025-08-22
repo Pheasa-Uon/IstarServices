@@ -1,28 +1,14 @@
 package com.istar.service.service.administrator.usersmanagement.user.impl;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
-import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.entity.administrator.usersmanagement.user.User;
-import com.istar.service.entity.administrator.usersmanagement.user.UserRole;
-import com.istar.service.repository.administrator.usersmanagement.user.UserRoleRepository;
-import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 import com.istar.service.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.service.security.JwtUtils;
 import com.istar.service.service.administrator.usersmanagement.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {

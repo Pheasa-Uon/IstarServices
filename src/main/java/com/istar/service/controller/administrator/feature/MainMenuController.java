@@ -1,7 +1,6 @@
 package com.istar.service.controller.administrator.feature;
 
-import com.istar.service.dto.administrator.usersmanagement.permission.MainMenuTreeDTO;
-import com.istar.service.entity.administrator.usersmanagement.permission.Feature;
+import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
 import com.istar.service.entity.administrator.usersmanagement.permission.MainMenu;
 import com.istar.service.service.administrator.feature.MainMenuService;
 import org.springframework.beans.factory.annotation.Autowired;

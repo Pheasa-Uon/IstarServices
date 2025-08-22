@@ -5,6 +5,7 @@ import com.istar.service.entity.administrator.usersmanagement.permission.Feature
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
+import com.istar.service.repository.administrator.usersmanagement.permission.MainMenuRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
 import com.istar.service.service.administrator.usersmanagement.permission.RoleFeaturePermissionService;
@@ -28,6 +29,9 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
 
     @Autowired
     private FeatureRepository featureRepository;
+
+    @Autowired
+    private MainMenuRepository mainMenuRepository;
 
     @Autowired
     private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
@@ -89,6 +93,7 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
 
     // NEW method to bulk save/update permissions
     public void savePermissionsBulk(List<FeaturePermissionDTO> dtos) {
+        // --- Handle FeaturePermissionDTO ---
         for (FeaturePermissionDTO dto : dtos) {
             if (dto.getRoleId() == null || dto.getFeatureId() == null) {
                 throw new IllegalArgumentException("Role ID and Feature ID must not be null");
@@ -128,8 +133,8 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
             System.out.println("Saving permission: " + permission.getRole().getName() + " - " + permission.getFeature().getName());
             permissionRepository.save(permission);
         }
-    }
 
+    }
 
     private void copyPermissionFields(RoleFeaturePermission target, RoleFeaturePermission source) {
         target.setIsSearch(source.getIsSearch());
