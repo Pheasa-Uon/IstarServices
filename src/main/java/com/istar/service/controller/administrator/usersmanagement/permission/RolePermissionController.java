@@ -1,10 +1,10 @@
 package com.istar.service.controller.administrator.usersmanagement.permission;
 
-
+import com.istar.service.dto.administrator.usersmanagement.permission.PermissionBulkDTO;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.RoleFeaturePermissionService;
+import com.istar.service.service.administrator.usersmanagement.permission.RolePermissionService;
 import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/permissions")
-public class RoleFeaturePermissionController {
+public class RolePermissionController {
 
     @Autowired
-    private RoleFeaturePermissionService permissionService;
+    private RolePermissionService permissionService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -65,9 +65,19 @@ public class RoleFeaturePermissionController {
         return ResponseEntity.ok().build();
     }
 
+//    @PostMapping("/bulk")
+//    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<FeaturePermissionDTO> dtos, List<MainMenuPermissionDTO> dtom) {
+//        permissionService.savePermissionsBulk(dtos, dtom);
+//        return ResponseEntity.ok().build();
+//    }
+
     @PostMapping("/bulk")
-    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<FeaturePermissionDTO> dtos) {
-        permissionService.savePermissionsBulk(dtos);
+    public ResponseEntity<?> savePermissionsBulk(@RequestBody PermissionBulkDTO bulkDTO) {
+        permissionService.savePermissionsBulk(
+                bulkDTO.getFeaturePermissions(),
+                bulkDTO.getMainMenuPermissions()
+        );
         return ResponseEntity.ok().build();
     }
+
 }

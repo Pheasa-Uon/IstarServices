@@ -1,4 +1,4 @@
-package com.istar.service.repository.administrator.usersmanagement.permission;
+package com.istar.service.repository.administrator.feature;
 
 import com.istar.service.entity.administrator.feature.MainMenu;
 import org.springframework.data.jpa.repository.JpaRepository;

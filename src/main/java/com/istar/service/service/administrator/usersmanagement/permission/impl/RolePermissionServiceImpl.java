@@ -1,14 +1,19 @@
 package com.istar.service.service.administrator.usersmanagement.permission.impl;
 
+import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
 import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
+import com.istar.service.dto.administrator.usersmanagement.permission.MainMenuPermissionDTO;
 import com.istar.service.entity.administrator.feature.Feature;
+import com.istar.service.entity.administrator.feature.MainMenu;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
-import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
-import com.istar.service.repository.administrator.usersmanagement.permission.MainMenuRepository;
+import com.istar.service.entity.administrator.usersmanagement.permission.RoleMainMenuPermission;
+import com.istar.service.repository.administrator.feature.FeatureRepository;
+import com.istar.service.repository.administrator.feature.MainMenuRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
+import com.istar.service.repository.administrator.usersmanagement.permission.RoleMainMenuPermissionRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.RoleFeaturePermissionService;
+import com.istar.service.service.administrator.usersmanagement.permission.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionService {
+public class RolePermissionServiceImpl implements RolePermissionService {
 
 
     @Autowired
@@ -31,10 +36,13 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
     private FeatureRepository featureRepository;
 
     @Autowired
+    private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+
+    @Autowired
     private MainMenuRepository mainMenuRepository;
 
     @Autowired
-    private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
+    private RoleMainMenuPermissionRepository roleMainMenuPermissionRepository;
 
     public List<RoleFeaturePermission> getAllPermissions() {
         return permissionRepository.findAll();
@@ -92,9 +100,54 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
     }
 
     // NEW method to bulk save/update permissions
-    public void savePermissionsBulk(List<FeaturePermissionDTO> dtos) {
+//    public void savePermissionsBulk(List<FeaturePermissionDTO> dtos) {
+//        // --- Handle FeaturePermissionDTO ---
+//        for (FeaturePermissionDTO dto : dtos) {
+//            if (dto.getRoleId() == null || dto.getFeatureId() == null) {
+//                throw new IllegalArgumentException("Role ID and Feature ID must not be null");
+//            }
+//
+//            Role role = roleRepository.findById(dto.getRoleId())
+//                    .orElseThrow(() -> new RuntimeException("Role not found: " + dto.getRoleId()));
+//
+//            Feature feature = featureRepository.findById(dto.getFeatureId())
+//                    .orElseThrow(() -> new RuntimeException("Feature not found: " + dto.getFeatureId()));
+//
+//            Optional<RoleFeaturePermission> existingOpt = permissionRepository.findByRoleIdAndFeatureId(role.getId(), feature.getId());
+//
+//            RoleFeaturePermission permission = existingOpt.orElse(new RoleFeaturePermission());
+//            permission.setRole(role);
+//            permission.setFeature(feature);
+//
+//            permission.setIsSearch(dto.getIsSearch());
+//            permission.setIsAdd(dto.getIsAdd());
+//            permission.setIsViewed(dto.getIsViewed());
+//            permission.setIsEdit(dto.getIsEdit());
+//            permission.setIsApprove(dto.getIsApprove());
+//            permission.setIsReject(dto.getIsReject());
+//            permission.setIsDeleted(dto.getIsDeleted());
+//            permission.setIsSave(dto.getIsSave());
+//            permission.setIsClear(dto.getIsClear());
+//            permission.setIsCancel(dto.getIsCancel());
+//            permission.setIsProcess(dto.getIsProcess());
+//            permission.setIsImport(dto.getIsImport());
+//            permission.setIsExport(dto.getIsExport());
+//            permission.setBStatus(true);
+//
+//            if (permission.getId() == null) {
+//                permission.setCreatedAt(LocalDateTime.now());
+//            }
+//            permission.setUpdatedAt(LocalDateTime.now());
+//            System.out.println("Saving permission: " + permission.getRole().getName() + " - " + permission.getFeature().getName());
+//            permissionRepository.save(permission);
+//        }
+//
+//    }
+
+    public void savePermissionsBulk(List<FeaturePermissionDTO> featurePermissions,
+                                    List<MainMenuPermissionDTO> mainMenuPermissions) {
         // --- Handle FeaturePermissionDTO ---
-        for (FeaturePermissionDTO dto : dtos) {
+        for (FeaturePermissionDTO dto : featurePermissions) {
             if (dto.getRoleId() == null || dto.getFeatureId() == null) {
                 throw new IllegalArgumentException("Role ID and Feature ID must not be null");
             }
@@ -105,12 +158,14 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
             Feature feature = featureRepository.findById(dto.getFeatureId())
                     .orElseThrow(() -> new RuntimeException("Feature not found: " + dto.getFeatureId()));
 
-            Optional<RoleFeaturePermission> existingOpt = permissionRepository.findByRoleIdAndFeatureId(role.getId(), feature.getId());
+            Optional<RoleFeaturePermission> existingOpt =
+                    permissionRepository.findByRoleIdAndFeatureId(role.getId(), feature.getId());
 
             RoleFeaturePermission permission = existingOpt.orElse(new RoleFeaturePermission());
             permission.setRole(role);
             permission.setFeature(feature);
 
+            // set all flags
             permission.setIsSearch(dto.getIsSearch());
             permission.setIsAdd(dto.getIsAdd());
             permission.setIsViewed(dto.getIsViewed());
@@ -130,11 +185,46 @@ public class RoleFeaturePermissionServiceImpl implements RoleFeaturePermissionSe
                 permission.setCreatedAt(LocalDateTime.now());
             }
             permission.setUpdatedAt(LocalDateTime.now());
-            System.out.println("Saving permission: " + permission.getRole().getName() + " - " + permission.getFeature().getName());
+
+            System.out.println("Saving feature permission: " +
+                    permission.getRole().getName() + " - " + permission.getFeature().getName());
+
             permissionRepository.save(permission);
         }
 
+        // --- Handle MainMenuPermissionDTO ---
+        for (MainMenuPermissionDTO treeDto : mainMenuPermissions) {
+            if (treeDto.getRoleId() == null || treeDto.getMainMenuId() == null) {
+                throw new IllegalArgumentException("Role ID and MainMenu ID must not be null");
+            }
+
+            Role role = roleRepository.findById(treeDto.getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + treeDto.getRoleId()));
+
+            MainMenu mainMenu = mainMenuRepository.findById(treeDto.getMainMenuId())
+                    .orElseThrow(() -> new RuntimeException("MainMenu not found: " + treeDto.getMainMenuId()));
+
+            Optional<RoleMainMenuPermission> existingOpt =
+                    roleMainMenuPermissionRepository.findByRoleIdAndMainMenuId(role.getId(), mainMenu.getId());
+
+            RoleMainMenuPermission menuPermission = existingOpt.orElse(new RoleMainMenuPermission());
+            menuPermission.setRole(role);
+            menuPermission.setMainMenu(mainMenu);
+            menuPermission.setIsVisible(treeDto.getIsVisible());
+            menuPermission.setBStatus(true);
+
+            if (menuPermission.getId() == null) {
+                menuPermission.setCreatedAt(LocalDateTime.now());
+            }
+            menuPermission.setUpdatedAt(LocalDateTime.now());
+
+            System.out.println("Saving main menu permission: " +
+                    menuPermission.getRole().getName() + " - " + menuPermission.getMainMenu().getName());
+
+            roleMainMenuPermissionRepository.save(menuPermission);
+        }
     }
+
 
     private void copyPermissionFields(RoleFeaturePermission target, RoleFeaturePermission source) {
         target.setIsSearch(source.getIsSearch());

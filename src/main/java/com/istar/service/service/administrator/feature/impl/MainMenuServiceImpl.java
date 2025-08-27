@@ -2,7 +2,7 @@ package com.istar.service.service.administrator.feature.impl;
 
 import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
 import com.istar.service.entity.administrator.feature.MainMenu;
-import com.istar.service.repository.administrator.usersmanagement.permission.MainMenuRepository;
+import com.istar.service.repository.administrator.feature.MainMenuRepository;
 import com.istar.service.service.administrator.feature.MainMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +32,8 @@ public class MainMenuServiceImpl implements MainMenuService {
         dto.setCode(mainMenu.getCode());
         dto.setRoutePath(mainMenu.getRoutePath());
         dto.setIcon(mainMenu.getIcon());
-        dto.setBStatus(mainMenu.getBStatus());
-        dto.setOrder(mainMenu.getOrders());
+        dto.setActive(mainMenu.getBStatus());
+        dto.setDisplayOrder(mainMenu.getOrders());
 
         if (mainMenu.getChildren() != null && !mainMenu.getChildren().isEmpty()) {
             List<MainMenuTreeDTO> childDTOs = mainMenu.getChildren().stream()

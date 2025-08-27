@@ -3,7 +3,7 @@ package com.istar.service.service.administrator.usersmanagement.permission;
 import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
-import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
+import com.istar.service.repository.administrator.feature.FeatureRepository;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

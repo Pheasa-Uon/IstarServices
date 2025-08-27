@@ -4,7 +4,7 @@
 //import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 //import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 //import com.istar.service.entity.administrator.usersmanagement.user.User;
-//import com.istar.service.repository.administrator.usersmanagement.permission.FeatureRepository;
+//import com.istar.service.repository.administrator.feature.FeatureRepository;
 //import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
 //import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
 //import com.istar.service.repository.administrator.usersmanagement.user.UserRepository;

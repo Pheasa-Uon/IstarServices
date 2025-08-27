@@ -4,6 +4,8 @@ import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.feature.MainMenu;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -23,11 +25,35 @@ public class RoleMainMenuPermission {
 
     @ManyToOne(optional = false)
     //@JoinColumn(name = "feature_id", nullable = false)
-    private MainMenu mainmenu;
+    private MainMenu mainMenu;
 
+    private Boolean isVisible;
     private Boolean bStatus;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    // --- Getters and Setters ---
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
+
+    public MainMenu getMainMenu() { return mainMenu; }
+    public void setMainMenu(MainMenu mainMenu) { this.mainMenu = mainMenu; }
+
+    public Boolean getIsVisible() { return isVisible; }
+    public void setIsVisible(Boolean isVisible) { this.isVisible = isVisible; }
+
+    public Boolean getBStatus() { return bStatus; }
+    public void setBStatus(Boolean bStatus) { this.bStatus = bStatus; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
 
 }
