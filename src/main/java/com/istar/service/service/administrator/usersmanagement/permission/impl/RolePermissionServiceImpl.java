@@ -3,6 +3,7 @@ package com.istar.service.service.administrator.usersmanagement.permission.impl;
 import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
 import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
 import com.istar.service.dto.administrator.usersmanagement.permission.MainMenuPermissionDTO;
+import com.istar.service.dto.administrator.usersmanagement.permission.RolePermissionsDTO;
 import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.feature.MainMenu;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
@@ -52,10 +53,38 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 //        return permissionRepository.findByRoleId(roleId);
 //    }
 
-    public List<FeaturePermissionDTO> getPermissionsByRole(Role role) {
-        List<RoleFeaturePermission> perms = roleFeaturePermissionRepository.findByRole(role);
+//    public List<FeaturePermissionDTO> getPermissionsByRole(Role role) {
+//        List<RoleFeaturePermission> perms = roleFeaturePermissionRepository.findByRole(role);
+//
+//        return perms.stream().map(p -> {
+//            FeaturePermissionDTO dto = new FeaturePermissionDTO();
+//            dto.setRoleId(p.getRole().getId());
+//            dto.setFeatureId(p.getFeature().getId());
+//            dto.setFeatureCode(p.getFeature().getCode());
+//            dto.setIsSearch(p.getIsSearch());
+//            dto.setIsAdd(p.getIsAdd());
+//            dto.setIsViewed(p.getIsViewed());
+//            dto.setIsEdit(p.getIsEdit());
+//            dto.setIsApprove(p.getIsApprove());
+//            dto.setIsReject(p.getIsReject());
+//            dto.setIsDeleted(p.getIsDeleted());
+//            dto.setIsSave(p.getIsSave());
+//            dto.setIsClear(p.getIsClear());
+//            dto.setIsCancel(p.getIsCancel());
+//            dto.setIsProcess(p.getIsProcess());
+//            dto.setIsImport(p.getIsImport());
+//            dto.setIsExport(p.getIsExport());
+//            dto.setBStatus(p.getBStatus());
+//            return dto;
+//        }).collect(Collectors.toList());
+//    }
 
-        return perms.stream().map(p -> {
+    public RolePermissionsDTO getPermissionsByRole(Role role) {
+        RolePermissionsDTO result = new RolePermissionsDTO();
+
+        // --- Feature Permissions ---
+        List<RoleFeaturePermission> perms = roleFeaturePermissionRepository.findByRole(role);
+        List<FeaturePermissionDTO> featureDtos = perms.stream().map(p -> {
             FeaturePermissionDTO dto = new FeaturePermissionDTO();
             dto.setRoleId(p.getRole().getId());
             dto.setFeatureId(p.getFeature().getId());
@@ -76,7 +105,22 @@ public class RolePermissionServiceImpl implements RolePermissionService {
             dto.setBStatus(p.getBStatus());
             return dto;
         }).collect(Collectors.toList());
+        result.setFeaturePermissions(featureDtos);
+
+        // --- MainMenu Permissions ---
+        List<RoleMainMenuPermission> menuPerms = roleMainMenuPermissionRepository.findByRole(role);
+        List<MainMenuPermissionDTO> menuDtos = menuPerms.stream().map(mp -> {
+            MainMenuPermissionDTO dto = new MainMenuPermissionDTO();
+            dto.setRoleId(mp.getRole().getId());
+            dto.setMainMenuId(mp.getMainMenu().getId());
+            dto.setIsVisible(mp.getIsVisible());
+            return dto;
+        }).collect(Collectors.toList());
+        result.setMainMenuPermissions(menuDtos);
+
+        return result;
     }
+
 
     public RoleFeaturePermission createPermission(RoleFeaturePermission permission) {
         permission.setBStatus(true);

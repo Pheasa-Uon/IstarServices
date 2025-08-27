@@ -1,6 +1,7 @@
 package com.istar.service.controller.administrator.usersmanagement.permission;
 
 import com.istar.service.dto.administrator.usersmanagement.permission.PermissionBulkDTO;
+import com.istar.service.dto.administrator.usersmanagement.permission.RolePermissionsDTO;
 import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
 import com.istar.service.entity.administrator.usersmanagement.permission.Role;
 import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
@@ -29,23 +30,34 @@ public class RolePermissionController {
         return ResponseEntity.ok(permissionService.getAllPermissions());
     }
 
+//    @GetMapping("/role/{roleId}")
+//    public ResponseEntity<List<FeaturePermissionDTO>> getPermissionsByRole(@PathVariable Long roleId) {
+//        Role role = roleRepository.findById(roleId).orElse(null);
+//        if (role == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        System.out.println("Role found: " + role.getName());
+//        List<FeaturePermissionDTO> permissions = permissionService.getPermissionsByRole(role);
+//        // Add null check and filtering
+//        if (permissions != null) {
+//            permissions = permissions.stream()
+//                .filter(Objects::nonNull)
+//                .collect(Collectors.toList());
+//        }
+//        System.out.println("Permissions found: " + permissions);
+//        return ResponseEntity.ok(permissions);
+//    }
+
     @GetMapping("/role/{roleId}")
-    public ResponseEntity<List<FeaturePermissionDTO>> getPermissionsByRole(@PathVariable Long roleId) {
+    public ResponseEntity<RolePermissionsDTO> getPermissionsByRole(@PathVariable Long roleId) {
         Role role = roleRepository.findById(roleId).orElse(null);
         if (role == null) {
             return ResponseEntity.notFound().build();
         }
-        System.out.println("Role found: " + role.getName());
-        List<FeaturePermissionDTO> permissions = permissionService.getPermissionsByRole(role);
-        // Add null check and filtering
-        if (permissions != null) {
-            permissions = permissions.stream()
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        }
-        System.out.println("Permissions found: " + permissions);
+        RolePermissionsDTO permissions = permissionService.getPermissionsByRole(role);
         return ResponseEntity.ok(permissions);
     }
+
 
     @PostMapping
     public ResponseEntity<RoleFeaturePermission> createPermission(@RequestBody RoleFeaturePermission permission) {
