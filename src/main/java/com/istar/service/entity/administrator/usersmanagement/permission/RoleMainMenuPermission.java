@@ -1,17 +1,15 @@
 package com.istar.service.entity.administrator.usersmanagement.permission;
 
-import com.istar.service.entity.administrator.feature.Feature;
+
 import com.istar.service.entity.administrator.feature.MainMenu;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "sys_role_menu_permissions",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "menu_id"}))
+        uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "main_menu_id"}))
 @Data
 public class RoleMainMenuPermission {
 
@@ -24,7 +22,7 @@ public class RoleMainMenuPermission {
     private Role role;
 
     @ManyToOne(optional = false)
-    //@JoinColumn(name = "feature_id", nullable = false)
+    //@JoinColumn(name = "main_menu_id", nullable = false)
     private MainMenu mainMenu;
 
     private Boolean isVisible;

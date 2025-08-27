@@ -264,7 +264,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
             System.out.println("Saving main menu permission: " +
                     menuPermission.getRole().getName() + " - " + menuPermission.getMainMenu().getName());
-            System.out.println("Visible: " + menuPermission.getIsVisible());
+            System.out.println("Visible: " + treeDto.getIsVisible());
 
             roleMainMenuPermissionRepository.save(menuPermission);
         }

@@ -34,6 +34,7 @@ public class MainMenuServiceImpl implements MainMenuService {
         dto.setIcon(mainMenu.getIcon());
         dto.setActive(mainMenu.getBStatus());
         dto.setDisplayOrder(mainMenu.getOrders());
+        dto.setDescription(mainMenu.getDescription());
 
         if (mainMenu.getChildren() != null && !mainMenu.getChildren().isEmpty()) {
             List<MainMenuTreeDTO> childDTOs = mainMenu.getChildren().stream()
