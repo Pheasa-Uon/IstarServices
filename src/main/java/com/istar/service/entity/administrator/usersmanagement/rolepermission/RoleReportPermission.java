@@ -1,6 +1,5 @@
-package com.istar.service.entity.administrator.usersmanagement.permission;
+package com.istar.service.entity.administrator.usersmanagement.rolepermission;
 
-import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.feature.Reports;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,7 +24,6 @@ public class RoleReportPermission {
     //@JoinColumn(name = "report_id", nullable = false)
     private Reports report;
 
-    private Boolean isSearch = false;
     private Boolean isViewed = false;
     private Boolean isExport = false;
 

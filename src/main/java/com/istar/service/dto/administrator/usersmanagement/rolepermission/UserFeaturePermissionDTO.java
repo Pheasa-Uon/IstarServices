@@ -1,4 +1,4 @@
-package com.istar.service.dto.administrator.usersmanagement.permission;
+package com.istar.service.dto.administrator.usersmanagement.rolepermission;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

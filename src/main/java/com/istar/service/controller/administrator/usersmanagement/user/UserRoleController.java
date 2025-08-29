@@ -1,13 +1,12 @@
 package com.istar.service.controller.administrator.usersmanagement.user;
 
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.service.entity.administrator.usersmanagement.user.UserRole;
 import com.istar.service.service.administrator.usersmanagement.user.UserRoleService;
 import com.istar.service.dto.administrator.usersmanagement.user.RoleAssignmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

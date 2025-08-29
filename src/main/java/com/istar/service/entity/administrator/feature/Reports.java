@@ -40,6 +40,9 @@ public class Reports {
     @Column(name = "descriptions", length = 500)
     private String description;
 
+    private Boolean isViewed = true;
+    private Boolean isExport = true;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
     @JsonBackReference

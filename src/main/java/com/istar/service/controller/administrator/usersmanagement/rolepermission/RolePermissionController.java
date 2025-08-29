@@ -1,19 +1,16 @@
-package com.istar.service.controller.administrator.usersmanagement.permission;
+package com.istar.service.controller.administrator.usersmanagement.rolepermission;
 
-import com.istar.service.dto.administrator.usersmanagement.permission.PermissionBulkDTO;
-import com.istar.service.dto.administrator.usersmanagement.permission.RolePermissionsDTO;
-import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.RolePermissionService;
-import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
+import com.istar.service.dto.administrator.usersmanagement.rolepermission.PermissionBulkDTO;
+import com.istar.service.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleRepository;
+import com.istar.service.service.administrator.usersmanagement.rolepermission.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/permissions")

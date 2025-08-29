@@ -41,9 +41,10 @@ public class MainMenu {
     @Column(name = "descriptions", length = 500)
     private String description;
 
+    private Boolean isVisible = true;
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    @JsonBackReference
     private MainMenu parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

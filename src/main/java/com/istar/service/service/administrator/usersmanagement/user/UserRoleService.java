@@ -1,6 +1,6 @@
 package com.istar.service.service.administrator.usersmanagement.user;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.service.entity.administrator.usersmanagement.user.UserRole;
 
 import java.util.List;

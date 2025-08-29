@@ -1,9 +1,9 @@
 package com.istar.service.service.administrator.usersmanagement.user.impl;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.service.entity.administrator.usersmanagement.user.User;
 import com.istar.service.entity.administrator.usersmanagement.user.UserRole;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleRepository;
 import com.istar.service.repository.administrator.usersmanagement.user.UserRepository;
 import com.istar.service.repository.administrator.usersmanagement.user.UserRoleRepository;
 import com.istar.service.service.administrator.usersmanagement.user.UserRoleService;

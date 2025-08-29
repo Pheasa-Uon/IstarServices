@@ -1,8 +1,8 @@
-package com.istar.service.service.administrator.usersmanagement.permission.impl;
+package com.istar.service.service.administrator.usersmanagement.rolepermission.impl;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.RoleService;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleRepository;
+import com.istar.service.service.administrator.usersmanagement.rolepermission.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

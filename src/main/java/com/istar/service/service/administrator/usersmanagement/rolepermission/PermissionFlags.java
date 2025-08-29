@@ -1,4 +1,4 @@
-package com.istar.service.service.administrator.usersmanagement.permission;
+package com.istar.service.service.administrator.usersmanagement.rolepermission;
 
 public record PermissionFlags(boolean search, boolean add, boolean view, boolean edit, boolean approve, boolean reject, boolean deleted, boolean save, boolean clear, boolean cancel, boolean process, boolean imported, boolean exported) {
     public PermissionFlags or(PermissionFlags other) {

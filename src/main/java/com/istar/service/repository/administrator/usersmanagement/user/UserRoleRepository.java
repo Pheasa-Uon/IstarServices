@@ -1,6 +1,6 @@
 package com.istar.service.repository.administrator.usersmanagement.user;
 
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.service.entity.administrator.usersmanagement.user.User;
 import com.istar.service.entity.administrator.usersmanagement.user.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;

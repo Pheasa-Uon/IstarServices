@@ -1,4 +1,4 @@
-package com.istar.service.entity.administrator.usersmanagement.permission;
+package com.istar.service.entity.administrator.usersmanagement.rolepermission;
 
 
 import com.istar.service.entity.administrator.feature.MainMenu;

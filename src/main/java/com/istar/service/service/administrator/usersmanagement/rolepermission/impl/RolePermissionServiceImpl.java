@@ -1,20 +1,19 @@
-package com.istar.service.service.administrator.usersmanagement.permission.impl;
+package com.istar.service.service.administrator.usersmanagement.rolepermission.impl;
 
-import com.istar.service.dto.administrator.feature.MainMenuTreeDTO;
-import com.istar.service.dto.administrator.usersmanagement.permission.FeaturePermissionDTO;
-import com.istar.service.dto.administrator.usersmanagement.permission.MainMenuPermissionDTO;
-import com.istar.service.dto.administrator.usersmanagement.permission.RolePermissionsDTO;
+import com.istar.service.dto.administrator.usersmanagement.rolepermission.FeaturePermissionDTO;
+import com.istar.service.dto.administrator.usersmanagement.rolepermission.MainMenuPermissionDTO;
+import com.istar.service.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
 import com.istar.service.entity.administrator.feature.Feature;
 import com.istar.service.entity.administrator.feature.MainMenu;
-import com.istar.service.entity.administrator.usersmanagement.permission.Role;
-import com.istar.service.entity.administrator.usersmanagement.permission.RoleFeaturePermission;
-import com.istar.service.entity.administrator.usersmanagement.permission.RoleMainMenuPermission;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.Role;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
+import com.istar.service.entity.administrator.usersmanagement.rolepermission.RoleMainMenuPermission;
 import com.istar.service.repository.administrator.feature.FeatureRepository;
 import com.istar.service.repository.administrator.feature.MainMenuRepository;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleFeaturePermissionRepository;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleMainMenuPermissionRepository;
-import com.istar.service.repository.administrator.usersmanagement.permission.RoleRepository;
-import com.istar.service.service.administrator.usersmanagement.permission.RolePermissionService;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleFeaturePermissionRepository;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionRepository;
+import com.istar.service.repository.administrator.usersmanagement.rolepermission.RoleRepository;
+import com.istar.service.service.administrator.usersmanagement.rolepermission.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
