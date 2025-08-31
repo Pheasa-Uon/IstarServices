@@ -14,7 +14,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "${app.cors.allowed-origins}")
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/coregetways/users")
 public class UserController {
 
     private final UserService userService;

@@ -59,32 +59,32 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         // user auth login and logout
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers("/api/auth/logout").permitAll()
-                        .requestMatchers("/api/auth/me/permissions").authenticated()
+                        .requestMatchers("/api/coregetways/authentication/**").permitAll()
+                        .requestMatchers("/api/coregetways/authentication/login").permitAll()
+                        .requestMatchers("/api/coregetways/authentication/logout").permitAll()
+                        .requestMatchers("/api/coregetways/authentication/me/permissions").authenticated()
 
                         // user
-                        .requestMatchers("/api/users/**").permitAll()
-                        .requestMatchers("/api/users/status").permitAll()
-                        .requestMatchers("/api/users/search").permitAll()
-                        .requestMatchers("/api/users/*/reset-password").permitAll()
-                        .requestMatchers("/api/userroles/**").permitAll()
-                        .requestMatchers("/api/userroles/assign/**").permitAll()
-                        .requestMatchers("/api/userroles/remove/**").permitAll()
+                        .requestMatchers("/api/coregetways/users/**").permitAll()
+                        .requestMatchers("/api/coregetways/users/status").permitAll()
+                        .requestMatchers("/api/coregetways/users/search").permitAll()
+                        .requestMatchers("/api/coregetways/users/*/reset-password").permitAll()
+                        .requestMatchers("/api/coregetways/userroles/**").permitAll()
+                        .requestMatchers("/api/coregetways/userroles/assign/**").permitAll()
+                        .requestMatchers("/api/coregetways/userroles/remove/**").permitAll()
 
                         //role permission
-                        .requestMatchers("/api/roles/status").permitAll()
-                        .requestMatchers("/api/roles/**").permitAll()
-                        .requestMatchers("/api/roles/search/**").permitAll()
+                        .requestMatchers("/api/coregetways/roles/status").permitAll()
+                        .requestMatchers("/api/coregetways/roles/**").permitAll()
+                        .requestMatchers("/api/coregetways/roles/search/**").permitAll()
 
-                        .requestMatchers("/api/permissions/**").permitAll()
-                        .requestMatchers("/api/permissions/bulk").permitAll()
-                        .requestMatchers("/api/permissions/role/**").permitAll()
-                        .requestMatchers("/api/features/treetable/**").permitAll()
+                        .requestMatchers("/api/coregetways/permissions/**").permitAll()
+                        .requestMatchers("/api/coregetways/permissions/bulk").permitAll()
+                        .requestMatchers("/api/coregetways/permissions/role/**").permitAll()
+                        .requestMatchers("/api/coregetways/features/treetable/**").permitAll()
 
-                        .requestMatchers("/api/mainmenu/**").permitAll()
-                        .requestMatchers("/api/mainmenu/treetable/**").permitAll()
+                        .requestMatchers("/api/coregetways/mainmenu/**").permitAll()
+                        .requestMatchers("/api/coregetways/mainmenu/treetable/**").permitAll()
 
                         .anyRequest().authenticated()
                 )

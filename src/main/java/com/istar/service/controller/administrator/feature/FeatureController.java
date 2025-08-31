@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/features")
+@RequestMapping("/api/coregetways/features")
 public class FeatureController {
 
     @Autowired

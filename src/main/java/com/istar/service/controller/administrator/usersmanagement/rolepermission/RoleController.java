@@ -12,7 +12,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "${app.cors.allowed-origins}")
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping("/api/coregetways/roles")
 public class RoleController {
 
     @Autowired

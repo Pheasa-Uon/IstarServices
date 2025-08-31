@@ -4,7 +4,7 @@ import com.istar.service.compiler.JavaCodeCompiler;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/compile")
+@RequestMapping("/api/coregetways/compile")
 public class CompileController {
 
     private final JavaCodeCompiler compiler = new JavaCodeCompiler();

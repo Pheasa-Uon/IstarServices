@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/coregetways/authentication")
 @CrossOrigin(origins = "*") // or configure via CorsConfig
 @Slf4j
 public class AuthController {
