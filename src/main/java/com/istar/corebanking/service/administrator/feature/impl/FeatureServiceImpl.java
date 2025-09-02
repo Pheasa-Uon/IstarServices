@@ -19,8 +19,8 @@ public class FeatureServiceImpl implements FeatureService {
     private FeatureRepository featureRepository;
 
     public List<FeatureTreeDTO> getFeatureTree() {
-        List<Feature> roots = featureRepository.findByParentIsNull();
-        return roots.stream().map(this::convertToTreeDTO).collect(Collectors.toList());
+        List<Feature> features = featureRepository.findByParentIsNull();
+        return features.stream().map(this::convertToTreeDTO).collect(Collectors.toList());
     }
 
     private FeatureTreeDTO convertToTreeDTO(Feature feature) {

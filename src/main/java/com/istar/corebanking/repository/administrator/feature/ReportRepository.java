@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ReportRepository extends JpaRepository<Reports, Long> {
     List<Reports> findByParentIsNull();
+
+    List<Reports> id(Long id);
 }

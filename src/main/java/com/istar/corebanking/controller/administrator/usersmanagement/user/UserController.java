@@ -33,6 +33,8 @@ public class UserController {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         user.setBStatus(true);
+
+        //System.out.println("registerUser: " + user);
         return userService.saveUser(user);
     }
 
@@ -58,6 +60,7 @@ public class UserController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         User updated = userService.updateUser(id, user);
+        System.out.println(updated);
         return ResponseEntity.ok(updated);
     }
 

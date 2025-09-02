@@ -2,6 +2,7 @@ package com.istar.corebanking.service.administrator.usersmanagement.rolepermissi
 
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.FeaturePermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.MainMenuPermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.ReportPermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
@@ -15,5 +16,5 @@ public interface RolePermissionService {
     RoleFeaturePermission createPermission(RoleFeaturePermission permission);
     RoleFeaturePermission updatePermission(Long id, RoleFeaturePermission permission);
     void deletePermission(Long id);
-    void savePermissionsBulk(List<FeaturePermissionDTO> dtos, List<MainMenuPermissionDTO> mainMenuPermissions);
+    void savePermissionsBulk(List<FeaturePermissionDTO> dtos, List<MainMenuPermissionDTO> mainMenuPermissions,  List<ReportPermissionDTO> reportPermission);
 }

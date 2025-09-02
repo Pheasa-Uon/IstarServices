@@ -24,11 +24,13 @@ public class Reports {
     private String code;
     @Column(name = "report_name", unique = true, nullable = false, length = 250)
     private String name;
+    @Column(name = "report_type")
+    private String type;
     @Column(name = "route_path", length = 250)
     private String routePath;
-    @Column(name = "report_icon", nullable = false, length = 250)
+    @Column(name = "report_icon", length = 250)
     private String icon;
-    @Column(name = "orders", nullable = false)
+    @Column(name = "display_order", nullable = false)
     private Integer orders;
     @Column(name = "b_status", nullable = false)
     private Boolean bStatus;

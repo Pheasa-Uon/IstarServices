@@ -27,24 +27,6 @@ public class RolePermissionController {
         return ResponseEntity.ok(permissionService.getAllPermissions());
     }
 
-//    @GetMapping("/role/{roleId}")
-//    public ResponseEntity<List<FeaturePermissionDTO>> getPermissionsByRole(@PathVariable Long roleId) {
-//        Role role = roleRepository.findById(roleId).orElse(null);
-//        if (role == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        System.out.println("Role found: " + role.getName());
-//        List<FeaturePermissionDTO> permissions = permissionService.getPermissionsByRole(role);
-//        // Add null check and filtering
-//        if (permissions != null) {
-//            permissions = permissions.stream()
-//                .filter(Objects::nonNull)
-//                .collect(Collectors.toList());
-//        }
-//        System.out.println("Permissions found: " + permissions);
-//        return ResponseEntity.ok(permissions);
-//    }
-
     @GetMapping("/role/{roleId}")
     public ResponseEntity<RolePermissionsDTO> getPermissionsByRole(@PathVariable Long roleId) {
         Role role = roleRepository.findById(roleId).orElse(null);
@@ -54,7 +36,6 @@ public class RolePermissionController {
         RolePermissionsDTO permissions = permissionService.getPermissionsByRole(role);
         return ResponseEntity.ok(permissions);
     }
-
 
     @PostMapping
     public ResponseEntity<RoleFeaturePermission> createPermission(@RequestBody RoleFeaturePermission permission) {
@@ -74,17 +55,12 @@ public class RolePermissionController {
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/bulk")
-//    public ResponseEntity<?> savePermissionsBulk(@RequestBody List<FeaturePermissionDTO> dtos, List<MainMenuPermissionDTO> dtom) {
-//        permissionService.savePermissionsBulk(dtos, dtom);
-//        return ResponseEntity.ok().build();
-//    }
-
     @PostMapping("/bulk")
     public ResponseEntity<?> savePermissionsBulk(@RequestBody PermissionBulkDTO bulkDTO) {
         permissionService.savePermissionsBulk(
                 bulkDTO.getFeaturePermissions(),
-                bulkDTO.getMainMenuPermissions()
+                bulkDTO.getMainMenuPermissions(),
+                bulkDTO.getReportPermissions()
         );
         return ResponseEntity.ok().build();
     }

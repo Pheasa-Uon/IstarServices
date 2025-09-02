@@ -12,7 +12,7 @@ public class ReportTreeDTO {
     private Boolean active; // clearer than bStatus
     private Integer displayOrder; // safer than 'order'
     private String description; // singular for consistency
-    private List<MainMenuTreeDTO> children = new ArrayList<>();
+    private List<ReportTreeDTO> children = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -36,6 +36,6 @@ public class ReportTreeDTO {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public List<MainMenuTreeDTO> getChildren() { return children; }
-    public void setChildren(List<MainMenuTreeDTO> children) { this.children = children; }
+    public List<ReportTreeDTO> getChildren() { return children; }
+    public void setChildren(List<ReportTreeDTO> children) { this.children = children; }
 }

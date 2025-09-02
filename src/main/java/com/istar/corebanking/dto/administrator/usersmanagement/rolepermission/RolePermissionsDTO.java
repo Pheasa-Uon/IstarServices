@@ -6,6 +6,7 @@ public class RolePermissionsDTO {
 
     private List<FeaturePermissionDTO> featurePermissions;
     private List<MainMenuPermissionDTO> mainMenuPermissions;
+    private List<ReportPermissionDTO> reportPermissions;
 
     public List<FeaturePermissionDTO> getFeaturePermissions() {
         return featurePermissions;
@@ -19,5 +20,12 @@ public class RolePermissionsDTO {
     }
     public void setMainMenuPermissions(List<MainMenuPermissionDTO> mainMenuPermissions) {
         this.mainMenuPermissions = mainMenuPermissions;
+    }
+
+    public List<ReportPermissionDTO> getReportPermissions() {
+        return reportPermissions;
+    }
+    public void setReportPermissions(List<ReportPermissionDTO> reportPermissions) {
+        this.reportPermissions = reportPermissions;
     }
 }

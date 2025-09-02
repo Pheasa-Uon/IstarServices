@@ -2,16 +2,21 @@ package com.istar.corebanking.service.administrator.usersmanagement.rolepermissi
 
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.FeaturePermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.MainMenuPermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.ReportPermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
 import com.istar.corebanking.entity.administrator.feature.Feature;
 import com.istar.corebanking.entity.administrator.feature.MainMenu;
+import com.istar.corebanking.entity.administrator.feature.Reports;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleMainMenuPermission;
+import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleReportPermission;
 import com.istar.corebanking.repository.administrator.feature.FeatureRepository;
 import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
+import com.istar.corebanking.repository.administrator.feature.ReportRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleFeaturePermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionRepository;
+import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleReportPermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleRepository;
 import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.RolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,12 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
     @Autowired
     private RoleMainMenuPermissionRepository roleMainMenuPermissionRepository;
+
+    @Autowired
+    private ReportRepository reportRepository;
+
+    @Autowired
+    private RoleReportPermissionRepository roleReportPermissionRepository;
 
     public List<RoleFeaturePermission> getAllPermissions() {
         return permissionRepository.findAll();
@@ -117,6 +128,19 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }).collect(Collectors.toList());
         result.setMainMenuPermissions(menuDtos);
 
+        // --- Report Permission ---
+        List<RoleReportPermission> reportPerms = roleReportPermissionRepository.findByRole(role);
+        List<ReportPermissionDTO> reportDtos = reportPerms.stream().map(mp ->{
+            ReportPermissionDTO dto = new ReportPermissionDTO();
+            dto.setRoleId(mp.getRole().getId());
+            dto.setReportId(mp.getReport().getId());
+            dto.setIsViewed(mp.getIsViewed());
+            dto.setIsExport(mp.getIsExport());
+            dto.setBStatus(mp.getBStatus());
+            return dto;
+        }).collect(Collectors.toList());
+        result.setReportPermissions(reportDtos);
+
         return result;
     }
 
@@ -188,7 +212,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 //    }
 
     public void savePermissionsBulk(List<FeaturePermissionDTO> featurePermissions,
-                                    List<MainMenuPermissionDTO> mainMenuPermissions) {
+                                    List<MainMenuPermissionDTO> mainMenuPermissions,
+                                    List<ReportPermissionDTO> reportPermissions) {
+
         // --- Handle FeaturePermissionDTO ---
         for (FeaturePermissionDTO dto : featurePermissions) {
             if (dto.getRoleId() == null || dto.getFeatureId() == null) {
@@ -266,6 +292,40 @@ public class RolePermissionServiceImpl implements RolePermissionService {
             System.out.println("Visible: " + treeDto.getIsVisible());
 
             roleMainMenuPermissionRepository.save(menuPermission);
+        }
+
+        // --- handle ReportPermissionDTO ---
+        for (ReportPermissionDTO treeDto : reportPermissions){
+            if (treeDto.getRoleId() == null || treeDto.getReportId() == null) {
+                throw new IllegalArgumentException("Role ID and Report ID must not be null");
+            }
+
+            Role role = roleRepository.findById(treeDto.getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + treeDto.getRoleId()));
+
+            Reports reports = reportRepository.findById(treeDto.getReportId())
+                    .orElseThrow(() -> new RuntimeException("Report not found: " + treeDto.getReportId()));
+
+            Optional<RoleReportPermission> existingOpt =
+                    roleReportPermissionRepository.findByRoleIdAndReportId(role.getId(), reports.getId());
+
+            RoleReportPermission reportPermission = existingOpt.orElse(new RoleReportPermission());
+            reportPermission.setRole(role);
+            reportPermission.setReport(reports);
+            reportPermission.setIsViewed(treeDto.getIsViewed());
+            reportPermission.setIsExport(treeDto.getIsExport());
+            reportPermission.setBStatus(true);
+
+            if (reportPermission.getId() == null) {
+                reportPermission.setCreatedAt(LocalDateTime.now());
+            }
+            reportPermission.setUpdatedAt(LocalDateTime.now());
+
+            System.out.println("Saving report permission: " +
+                    reportPermission.getRole().getName() + " - " + reportPermission.getReport().getName());
+            System.out.println("Can View: " + treeDto.getIsViewed() + " - Can Export: " + treeDto.getIsViewed());
+
+            roleReportPermissionRepository.save(reportPermission);
         }
     }
 
