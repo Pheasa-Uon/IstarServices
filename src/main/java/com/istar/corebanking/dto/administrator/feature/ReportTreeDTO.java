@@ -9,7 +9,7 @@ public class ReportTreeDTO {
     private String code;
     private String name;
     private String routePath;
-    private Boolean active; // clearer than bStatus
+    private Boolean bStatus; // clearer than bStatus
     private Integer displayOrder; // safer than 'order'
     private String description; // singular for consistency
     private List<ReportTreeDTO> children = new ArrayList<>();
@@ -27,8 +27,8 @@ public class ReportTreeDTO {
     public String getRoutePath() { return routePath; }
     public void setRoutePath(String routePath) { this.routePath = routePath; }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public Boolean getbStatus() { return bStatus; }
+    public void setbStatus(Boolean bstatus) { this.bStatus = bstatus; }
 
     public Integer getDisplayOrder() { return displayOrder; }
     public void setDisplayOrder(Integer displayOrder) { this.displayOrder = displayOrder; }

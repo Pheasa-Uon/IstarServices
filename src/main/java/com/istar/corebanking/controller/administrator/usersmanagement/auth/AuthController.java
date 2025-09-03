@@ -53,10 +53,6 @@ public class AuthController {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-//        User users = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
-//        Map<String, PermissionFlags> marged = permissionService.mergeByFeature(users.getRoles());
-//        List<String> authorities = permissionService.toAuthorities(marged);
-
         //String token = jwtUtils.generateJwtToken(userDetails.getUsername(),authorities);
         String token = jwtUtils.generateJwtToken(userDetails.getUsername());
 
@@ -74,12 +70,6 @@ public class AuthController {
         //System.out.println("Token: " + token);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
-
-//    @GetMapping("/me/permissions")
-//    public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
-//        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
-//        return permissionService.mergeByFeature(user.getRoles());
-//    }
 
     @GetMapping("/me/permissions")
     public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {

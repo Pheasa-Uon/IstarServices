@@ -31,6 +31,7 @@ public class ReportServiceImpl implements ReportService {
         dto.setCode(report.getCode());
         dto.setName(report.getName());
         dto.setRoutePath(report.getRoutePath());
+        dto.setbStatus(report.getBStatus());
         dto.setDisplayOrder(report.getOrders());
         dto.setDescription(report.getDescription());
 
