@@ -15,7 +15,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username); // ✅ safe Optional
     List<User> findBybStatusTrue();
 
-    @Query("SELECT u FROM User u WHERE u.bStatus = true AND " +
+    @Query("SELECT u FROM User u WHERE u.bStatus = true AND u.isAdmin = false")
+    List<User> findBybStatusTrueAndisAdminFalse();
+
+    @Query("SELECT u FROM User u WHERE u.bStatus = true AND u.isAdmin = false AND" +
             "(" +
             "LOWER(u.username) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(u.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +

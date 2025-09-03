@@ -1,8 +1,8 @@
 package com.istar.corebanking.service.administrator.usersmanagement.rolepermission;
 
-public record PermissionFlags(boolean search, boolean add, boolean view, boolean edit, boolean approve, boolean reject, boolean deleted, boolean save, boolean clear, boolean cancel, boolean process, boolean imported, boolean exported) {
-    public PermissionFlags or(PermissionFlags other) {
-        return new PermissionFlags(
+public record FeaturePermissionFlags(boolean search, boolean add, boolean view, boolean edit, boolean approve, boolean reject, boolean deleted, boolean save, boolean clear, boolean cancel, boolean process, boolean imported, boolean exported) {
+    public FeaturePermissionFlags or(FeaturePermissionFlags other) {
+        return new FeaturePermissionFlags(
                 this.search || other.search,
                 this.add || other.add,
                 this.view || other.view,

@@ -71,10 +71,16 @@ public class UserServiceImpl implements UserService {
     }
 
 
+//    @Override
+//    public List<User> getAllUsers() {
+//        //return userRepository.findAll(); // ❌ returns soft-deleted users too
+//        return userRepository.findBybStatusTrue(); // ✅ only active users
+//    }
+
     @Override
     public List<User> getAllUsers() {
         //return userRepository.findAll(); // ❌ returns soft-deleted users too
-        return userRepository.findBybStatusTrue(); // ✅ only active users
+        return userRepository.findBybStatusTrueAndisAdminFalse(); // ✅ only active users
     }
 
     @Override

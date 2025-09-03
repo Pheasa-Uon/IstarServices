@@ -17,8 +17,8 @@ public class PermissionService {
     private final FeatureRepository featureRepository;
 
     // Return merged permissions for a user's roles
-    public Map<String, PermissionFlags> mergeByFeature(Set<Role> roles) {
-        Map<String, PermissionFlags> map = new HashMap<>();
+    public Map<String, FeaturePermissionFlags> mergeByFeature(Set<Role> roles) {
+        Map<String, FeaturePermissionFlags> map = new HashMap<>();
 
         // Convert role set to a list of IDs
         List<Long> roleIds = roles.stream()
@@ -29,7 +29,7 @@ public class PermissionService {
         for (RoleFeaturePermission rfp : rfpRepo.findByRoleIdInAndBStatusIsTrue(roleIds)) {
             String feature = rfp.getFeature().getCode();
 
-            PermissionFlags flags = new PermissionFlags(
+            FeaturePermissionFlags flags = new FeaturePermissionFlags(
                     rfp.getIsSearch(),
                     rfp.getIsAdd(),
                     rfp.getIsViewed(),
@@ -46,22 +46,21 @@ public class PermissionService {
             );
 
             // Merge permissions for the same feature
-            map.merge(feature, flags, PermissionFlags::or);
+            map.merge(feature, flags, FeaturePermissionFlags::or);
         }
-
         return map;
     }
 
     // Return all permissions (full access for admin)
-    public Map<String, PermissionFlags> getAllPermissions() {
-        Map<String, PermissionFlags> all = new HashMap<>();
+    public Map<String, FeaturePermissionFlags> getAllPermissions() {
+        Map<String, FeaturePermissionFlags> all = new HashMap<>();
 
         // Fetch all features from DB
         List<Feature> features = featureRepository.findAll();
 
         for (Feature feature : features) {
             // Here we read flags from Feature entity instead of hardcoding true
-            all.put(feature.getCode(), new PermissionFlags(
+            all.put(feature.getCode(), new FeaturePermissionFlags(
                     feature.isSearch(),
                     feature.isAdd(),
                     feature.isViewed(),
@@ -81,23 +80,23 @@ public class PermissionService {
         return all;
     }
 
-    public List<String> toAuthorities(Map<String, PermissionFlags> map) {
-        List<String> authorities = new ArrayList<>();
-        map.forEach((feature, flags) -> {
-            if (flags.search()) authorities.add("FEATURE" + feature + ".search");
-            if (flags.add()) authorities.add("FEATURE" + feature + ".add");
-            if (flags.view()) authorities.add("FEATURE" + feature + ".view");
-            if (flags.edit()) authorities.add("FEATURE" + feature + ".edit");
-            if (flags.approve()) authorities.add("FEATURE" + feature + ".approve");
-            if (flags.reject()) authorities.add("FEATURE" + feature + ".reject");
-            if (flags.deleted()) authorities.add("FEATURE" + feature + ".deleted");
-            if (flags.save()) authorities.add("FEATURE" + feature + ".save");
-            if (flags.clear()) authorities.add("FEATURE" + feature + ".clear");
-            if (flags.cancel()) authorities.add("FEATURE" + feature + ".cancel");
-            if (flags.process()) authorities.add("FEATURE" + feature + ".process");
-            if (flags.imported() ) authorities.add("FEATURE" + feature + ".imported");
-            if (flags.exported() ) authorities.add("FEATURE" + feature + ".exported");
-        });
-        return authorities;
-    }
+//    public List<String> toAuthorities(Map<String, PermissionFlags> map) {
+//        List<String> authorities = new ArrayList<>();
+//        map.forEach((feature, flags) -> {
+//            if (flags.search()) authorities.add("FEATURE" + feature + ".search");
+//            if (flags.add()) authorities.add("FEATURE" + feature + ".add");
+//            if (flags.view()) authorities.add("FEATURE" + feature + ".view");
+//            if (flags.edit()) authorities.add("FEATURE" + feature + ".edit");
+//            if (flags.approve()) authorities.add("FEATURE" + feature + ".approve");
+//            if (flags.reject()) authorities.add("FEATURE" + feature + ".reject");
+//            if (flags.deleted()) authorities.add("FEATURE" + feature + ".deleted");
+//            if (flags.save()) authorities.add("FEATURE" + feature + ".save");
+//            if (flags.clear()) authorities.add("FEATURE" + feature + ".clear");
+//            if (flags.cancel()) authorities.add("FEATURE" + feature + ".cancel");
+//            if (flags.process()) authorities.add("FEATURE" + feature + ".process");
+//            if (flags.imported() ) authorities.add("FEATURE" + feature + ".imported");
+//            if (flags.exported() ) authorities.add("FEATURE" + feature + ".exported");
+//        });
+//        return authorities;
+//    }
 }

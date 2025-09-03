@@ -3,7 +3,7 @@ package com.istar.corebanking.controller.administrator.usersmanagement.auth;
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
 import com.istar.corebanking.security.JwtUtils;
-import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.PermissionFlags;
+import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.FeaturePermissionFlags;
 import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.PermissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -72,7 +72,7 @@ public class AuthController {
     }
 
     @GetMapping("/me/permissions")
-    public Map<String, PermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
+    public Map<String, FeaturePermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
