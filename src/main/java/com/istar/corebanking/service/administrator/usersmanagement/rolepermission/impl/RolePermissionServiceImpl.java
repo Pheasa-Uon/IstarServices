@@ -136,7 +136,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
             dto.setReportId(mp.getReport().getId());
             dto.setIsViewed(mp.getIsViewed());
             dto.setIsExport(mp.getIsExport());
-            dto.setBStatus(mp.getBStatus());
+            dto.setbStatus(mp.getBStatus());
             return dto;
         }).collect(Collectors.toList());
         result.setReportPermissions(reportDtos);
