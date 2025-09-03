@@ -80,9 +80,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/coregateways/roles/**").permitAll()
                         .requestMatchers("/api/coregateways/roles/search/**").permitAll()
 
-                        .requestMatchers("/api/coregateways/permissions/**").permitAll()
-                        .requestMatchers("/api/coregateways/permissions/bulk").permitAll()
-                        .requestMatchers("/api/coregateways/permissions/role/**").permitAll()
+                        .requestMatchers("/api/coregateways/rolepermissions/**").permitAll()
+                        .requestMatchers("/api/coregateways/rolepermissions/bulk").permitAll()
+                        .requestMatchers("/api/coregateways/rolepermissions/role/**").permitAll()
 
                         .requestMatchers("/api/coregateways/features/treetable/**").permitAll()
 

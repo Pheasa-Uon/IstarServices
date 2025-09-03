@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/coregateways/permissions")
+@RequestMapping("/api/coregateways/rolepermissions")
 public class RolePermissionController {
 
     @Autowired
