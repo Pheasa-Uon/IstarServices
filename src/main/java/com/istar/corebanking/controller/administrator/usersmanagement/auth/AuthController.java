@@ -81,7 +81,7 @@ public class AuthController {
         if ( isAdmin == true || user.getUsername().equals("admin")) {
             // Admin gets all permissions
             System.out.println("Admin permissions...");
-            return permissionService.getAllPermissions();
+            return permissionService.getAllFeaturePermissions();
         } else {
             // Normal user gets only merged permissions from their roles
             System.out.println("User permissions...");

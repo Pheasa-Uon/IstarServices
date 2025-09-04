@@ -70,7 +70,7 @@ public class PermissionService {
     }
 
     // Return all permissions (full access for admin)
-    public Map<String, FeaturePermissionFlags> getAllPermissions() {
+    public Map<String, FeaturePermissionFlags> getAllFeaturePermissions() {
         Map<String, FeaturePermissionFlags> all = new HashMap<>();
 
         // Fetch all features from DB
