@@ -59,6 +59,6 @@ public class ReportPermissionController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         return permissionService.hasReportPermission(user.getRoles(), reportId, permissionType);
-        
+
     }
 }

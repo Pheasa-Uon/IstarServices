@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/coregateways/permissions/menus")
@@ -32,6 +33,18 @@ public class MenuPermissionController {
 
         return isAdmin ? permissionService.getAllMenuPermissions() :
                         permissionService.mergeMenuPermissions(user.getRoles());
+    }
+
+    @GetMapping("/me/visible")
+    public Set<Long> getVisibleMenuPermissions(@AuthenticationPrincipal UserDetails userDetails) {
+
+        User user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        boolean isAdmin = user.isAdmin() || user.getUsername().equals("admin");
+
+        return isAdmin ? permissionService.getAllMenuPermissions().keySet() :
+                        permissionService.getVisibleMenuIds(user.getRoles());
     }
 
     @GetMapping("/me/check")
