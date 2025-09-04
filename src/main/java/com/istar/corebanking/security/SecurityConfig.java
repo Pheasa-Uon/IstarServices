@@ -64,7 +64,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/coregateways/authentication/**").permitAll()
                         .requestMatchers("/api/coregateways/authentication/login").permitAll()
                         .requestMatchers("/api/coregateways/authentication/logout").permitAll()
-                        .requestMatchers("/api/coregateways/authentication/me/permissions").authenticated()
+                        .requestMatchers("/api/coregateways/permissions/feature/**").authenticated()
 
                         // user
                         .requestMatchers("/api/coregateways/users/**").permitAll()

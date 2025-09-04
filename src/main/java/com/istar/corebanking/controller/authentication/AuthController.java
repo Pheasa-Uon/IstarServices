@@ -1,9 +1,8 @@
-package com.istar.corebanking.controller.administrator.usersmanagement.auth;
+package com.istar.corebanking.controller.authentication;
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
 import com.istar.corebanking.security.JwtUtils;
-import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.FeaturePermissionFlags;
 import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.PermissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -30,16 +28,13 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final UserRepository userRepository;
-    private final PermissionService permissionService;
 
     public AuthController(AuthenticationManager authenticationManager,
                           JwtUtils jwtUtils,
-                          UserRepository userRepository,
-                          PermissionService permissionService) {
+                          UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.userRepository = userRepository;
-        this.permissionService = permissionService;
     }
 
     @PostMapping("/login")
@@ -70,25 +65,6 @@ public class AuthController {
         //System.out.println("Token: " + token);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
-
-    @GetMapping("/me/permissions")
-    public Map<String, FeaturePermissionFlags> myPerms(@AuthenticationPrincipal UserDetails userDetails) {
-        User user = userRepository.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        boolean isAdmin = user.isAdmin();
-
-        if ( isAdmin == true || user.getUsername().equals("admin")) {
-            // Admin gets all permissions
-            System.out.println("Admin permissions...");
-            return permissionService.getAllFeaturePermissions();
-        } else {
-            // Normal user gets only merged permissions from their roles
-            System.out.println("User permissions...");
-            return permissionService.mergeByFeature(user.getRoles());
-        }
-    }
-
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader,

@@ -1,4 +1,4 @@
-package com.istar.corebanking.controller.administrator.usersmanagement.auth;
+package com.istar.corebanking.controller.authentication;
 
 import com.istar.corebanking.compiler.JavaCodeCompiler;
 import org.springframework.web.bind.annotation.*;
