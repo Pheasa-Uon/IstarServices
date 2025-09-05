@@ -1,4 +1,4 @@
-package com.istar.corebanking.service.administrator.usersmanagement.rolepermission;
+package com.istar.corebanking.service.authentication;
 
 import com.istar.corebanking.entity.administrator.feature.Feature;
 import com.istar.corebanking.entity.administrator.feature.MainMenu;
@@ -13,7 +13,6 @@ import com.istar.corebanking.repository.administrator.feature.ReportRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleFeaturePermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleReportPermissionRepository;
-import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

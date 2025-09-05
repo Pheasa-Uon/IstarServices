@@ -3,7 +3,7 @@ package com.istar.corebanking.controller.authentication;
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.PermissionService;
+import com.istar.corebanking.service.authentication.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;

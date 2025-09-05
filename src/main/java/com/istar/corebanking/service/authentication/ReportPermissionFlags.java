@@ -1,4 +1,4 @@
-package com.istar.corebanking.service.administrator.usersmanagement.rolepermission;
+package com.istar.corebanking.service.authentication;
 
 public record ReportPermissionFlags(Boolean canView, Boolean canExport) {
     public ReportPermissionFlags or(ReportPermissionFlags other) {
