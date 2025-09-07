@@ -1,11 +1,12 @@
-package com.istar.corebanking.controller.authentication;
+package com.istar.corebanking.controller.administrator.usersmanagement.permission;
 
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.MainMenuPermissionService;
 import com.istar.corebanking.service.administrator.usersmanagement.permission.record.MenuPermissionFlags;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.PermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.FeaturePermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MenuPermissionController {
 
-    private final PermissionService permissionService;
+    private final MainMenuPermissionService permissionService;
     private final UserRepository userRepository;
     private final MainMenuRepository mainMenuRepository;
 

@@ -1,9 +1,10 @@
-package com.istar.corebanking.controller.authentication;
+package com.istar.corebanking.controller.administrator.usersmanagement.permission;
 
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.PermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.FeaturePermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.ReportPermissionService;
 import com.istar.corebanking.service.administrator.usersmanagement.permission.record.ReportPermissionFlags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ReportPermissionController {
 
-    private final PermissionService permissionService;
+    private final ReportPermissionService permissionService;
     private final UserRepository userRepository;
 
     @GetMapping("/me")
