@@ -2,8 +2,8 @@ package com.istar.corebanking.controller.authentication;
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.corebanking.service.authentication.FeaturePermissionFlags;
-import com.istar.corebanking.service.authentication.PermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.FeaturePermissionFlags;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.PermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,15 +31,5 @@ public class FeaturePermissionController {
 
         return isAdmin ? permissionService.getAllFeaturePermissions() :
                         permissionService.mergeByFeature(user.getRoles());
-    }
-
-    @GetMapping("/me/check")
-    public boolean checkFeaturePermissions(@AuthenticationPrincipal UserDetails userDetails,
-                                           @RequestParam String featureCode,
-                                           @RequestParam String permissionType){
-        User user = userRepository.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return permissionService.hasFeaturePermission(user.getRoles(), featureCode, permissionType);
     }
 }

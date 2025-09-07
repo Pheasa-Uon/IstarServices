@@ -3,8 +3,8 @@ package com.istar.corebanking.controller.authentication;
 
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.corebanking.service.authentication.PermissionService;
-import com.istar.corebanking.service.authentication.ReportPermissionFlags;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.PermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.ReportPermissionFlags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,28 +37,28 @@ public class ReportPermissionController {
 
     }
 
-    @GetMapping("/me/accessible")
-    public Set<Long> getAccessibleReportPermissions(@AuthenticationPrincipal UserDetails userDetails) {
+//    @GetMapping("/me/accessible")
+//    public Set<Long> getAccessibleReportPermissions(@AuthenticationPrincipal UserDetails userDetails) {
+//
+//        User user =  userRepository.findByUsername(userDetails.getUsername())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        boolean isAdmin = user.isAdmin() || user.getUsername().equals("admin");
+//
+//        return isAdmin ? permissionService.getAllReportPermissions().keySet() :
+//                        permissionService.getAccessibleReportIds(user.getRoles());
+//
+//    }
 
-        User user =  userRepository.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        boolean isAdmin = user.isAdmin() || user.getUsername().equals("admin");
-
-        return isAdmin ? permissionService.getAllReportPermissions().keySet() :
-                        permissionService.getAccessibleReportIds(user.getRoles());
-
-    }
-
-    @GetMapping("/me/check")
-    public boolean checkReportPermission(@AuthenticationPrincipal UserDetails userDetails,
-                                         @RequestParam Long reportId,
-                                         @RequestParam String permissionType) {
-
-        User user  = userRepository.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return permissionService.hasReportPermission(user.getRoles(), reportId, permissionType);
-
-    }
+//    @GetMapping("/me/check")
+//    public boolean checkReportPermission(@AuthenticationPrincipal UserDetails userDetails,
+//                                         @RequestParam Long reportId,
+//                                         @RequestParam String permissionType) {
+//
+//        User user  = userRepository.findByUsername(userDetails.getUsername())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        return permissionService.hasReportPermission(user.getRoles(), reportId, permissionType);
+//
+//    }
 }

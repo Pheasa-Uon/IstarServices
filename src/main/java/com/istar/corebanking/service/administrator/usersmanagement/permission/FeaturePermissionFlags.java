@@ -1,4 +1,4 @@
-package com.istar.corebanking.service.authentication;
+package com.istar.corebanking.service.administrator.usersmanagement.permission;
 
 public record FeaturePermissionFlags(boolean search, boolean add, boolean view, boolean edit, boolean approve, boolean reject, boolean deleted, boolean save, boolean clear, boolean cancel, boolean process, boolean imported, boolean exported) {
     public FeaturePermissionFlags or(FeaturePermissionFlags other) {
