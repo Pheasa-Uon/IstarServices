@@ -1,8 +1,8 @@
 package com.istar.corebanking.service.administrator.usersmanagement.rolepermission.impl;
 
-import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.FeaturePermissionDTO;
-import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.MainMenuPermissionDTO;
-import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.ReportPermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleFeaturePermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleReportPermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
 import com.istar.corebanking.entity.administrator.feature.Feature;
 import com.istar.corebanking.entity.administrator.feature.MainMenu;
@@ -94,8 +94,8 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
         // --- Feature Permissions ---
         List<RoleFeaturePermission> perms = roleFeaturePermissionRepository.findByRole(role);
-        List<FeaturePermissionDTO> featureDtos = perms.stream().map(p -> {
-            FeaturePermissionDTO dto = new FeaturePermissionDTO();
+        List<RoleFeaturePermissionDTO> featureDtos = perms.stream().map(p -> {
+            RoleFeaturePermissionDTO dto = new RoleFeaturePermissionDTO();
             dto.setRoleId(p.getRole().getId());
             dto.setFeatureId(p.getFeature().getId());
             dto.setFeatureCode(p.getFeature().getCode());
@@ -119,8 +119,8 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
         // --- MainMenu Permissions ---
         List<RoleMainMenuPermission> menuPerms = roleMainMenuPermissionRepository.findByRole(role);
-        List<MainMenuPermissionDTO> menuDtos = menuPerms.stream().map(mp -> {
-            MainMenuPermissionDTO dto = new MainMenuPermissionDTO();
+        List<RoleMainMenuPermissionDTO> menuDtos = menuPerms.stream().map(mp -> {
+            RoleMainMenuPermissionDTO dto = new RoleMainMenuPermissionDTO();
             dto.setRoleId(mp.getRole().getId());
             dto.setMainMenuId(mp.getMainMenu().getId());
             dto.setIsVisible(mp.getIsVisible());
@@ -130,8 +130,8 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
         // --- Report Permission ---
         List<RoleReportPermission> reportPerms = roleReportPermissionRepository.findByRole(role);
-        List<ReportPermissionDTO> reportDtos = reportPerms.stream().map(mp ->{
-            ReportPermissionDTO dto = new ReportPermissionDTO();
+        List<RoleReportPermissionDTO> reportDtos = reportPerms.stream().map(mp ->{
+            RoleReportPermissionDTO dto = new RoleReportPermissionDTO();
             dto.setRoleId(mp.getRole().getId());
             dto.setReportId(mp.getReport().getId());
             dto.setIsViewed(mp.getIsViewed());
@@ -211,12 +211,12 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 //
 //    }
 
-    public void savePermissionsBulk(List<FeaturePermissionDTO> featurePermissions,
-                                    List<MainMenuPermissionDTO> mainMenuPermissions,
-                                    List<ReportPermissionDTO> reportPermissions) {
+    public void savePermissionsBulk(List<RoleFeaturePermissionDTO> featurePermissions,
+                                    List<RoleMainMenuPermissionDTO> mainMenuPermissions,
+                                    List<RoleReportPermissionDTO> reportPermissions) {
 
         // --- Handle FeaturePermissionDTO ---
-        for (FeaturePermissionDTO dto : featurePermissions) {
+        for (RoleFeaturePermissionDTO dto : featurePermissions) {
             if (dto.getRoleId() == null || dto.getFeatureId() == null) {
                 throw new IllegalArgumentException("Role ID and Feature ID must not be null");
             }
@@ -262,7 +262,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }
 
         // --- Handle MainMenuPermissionDTO ---
-        for (MainMenuPermissionDTO treeDto : mainMenuPermissions) {
+        for (RoleMainMenuPermissionDTO treeDto : mainMenuPermissions) {
             if (treeDto.getRoleId() == null || treeDto.getMainMenuId() == null) {
                 throw new IllegalArgumentException("Role ID and MainMenu ID must not be null");
             }
@@ -295,7 +295,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }
 
         // --- handle ReportPermissionDTO ---
-        for (ReportPermissionDTO treeDto : reportPermissions){
+        for (RoleReportPermissionDTO treeDto : reportPermissions){
             if (treeDto.getRoleId() == null || treeDto.getReportId() == null) {
                 throw new IllegalArgumentException("Role ID and Report ID must not be null");
             }

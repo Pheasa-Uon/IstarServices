@@ -4,28 +4,28 @@ import java.util.List;
 
 public class RolePermissionsDTO {
 
-    private List<FeaturePermissionDTO> featurePermissions;
-    private List<MainMenuPermissionDTO> mainMenuPermissions;
-    private List<ReportPermissionDTO> reportPermissions;
+    private List<RoleFeaturePermissionDTO> featurePermissions;
+    private List<RoleMainMenuPermissionDTO> mainMenuPermissions;
+    private List<RoleReportPermissionDTO> reportPermissions;
 
-    public List<FeaturePermissionDTO> getFeaturePermissions() {
+    public List<RoleFeaturePermissionDTO> getFeaturePermissions() {
         return featurePermissions;
     }
-    public void setFeaturePermissions(List<FeaturePermissionDTO> featurePermissions) {
+    public void setFeaturePermissions(List<RoleFeaturePermissionDTO> featurePermissions) {
         this.featurePermissions = featurePermissions;
     }
 
-    public List<MainMenuPermissionDTO> getMainMenuPermissions() {
+    public List<RoleMainMenuPermissionDTO> getMainMenuPermissions() {
         return mainMenuPermissions;
     }
-    public void setMainMenuPermissions(List<MainMenuPermissionDTO> mainMenuPermissions) {
+    public void setMainMenuPermissions(List<RoleMainMenuPermissionDTO> mainMenuPermissions) {
         this.mainMenuPermissions = mainMenuPermissions;
     }
 
-    public List<ReportPermissionDTO> getReportPermissions() {
+    public List<RoleReportPermissionDTO> getReportPermissions() {
         return reportPermissions;
     }
-    public void setReportPermissions(List<ReportPermissionDTO> reportPermissions) {
+    public void setReportPermissions(List<RoleReportPermissionDTO> reportPermissions) {
         this.reportPermissions = reportPermissions;
     }
 }

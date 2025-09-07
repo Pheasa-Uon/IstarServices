@@ -3,7 +3,7 @@ package com.istar.corebanking.dto.administrator.usersmanagement.rolepermission;
 import lombok.Data;
 
 @Data
-public class FeaturePermissionDTO {
+public class RoleFeaturePermissionDTO {
 
     private Long roleId;
     private Long featureId;
@@ -25,11 +25,11 @@ public class FeaturePermissionDTO {
     private Boolean isExport = false;
     private Boolean bStatus;
 
-    public FeaturePermissionDTO() {
+    public RoleFeaturePermissionDTO() {
     }
 
-    public FeaturePermissionDTO(String code, Boolean isSearch, Boolean isAdd,
-                                Boolean isViewed, Boolean isEdit, Boolean isDeleted) {
+    public RoleFeaturePermissionDTO(String code, Boolean isSearch, Boolean isAdd,
+                                    Boolean isViewed, Boolean isEdit, Boolean isDeleted) {
         this.featureCode = code;
         this.isSearch = isSearch;
         this.isAdd = isAdd;

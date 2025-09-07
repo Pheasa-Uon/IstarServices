@@ -1,4 +1,4 @@
-package com.istar.corebanking.service.administrator.usersmanagement.permission;
+package com.istar.corebanking.service.administrator.usersmanagement.permission.record;
 
 public record MenuPermissionFlags(boolean isvisible) {
     public MenuPermissionFlags or(MenuPermissionFlags other) {

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportPermissionDTO {
+public class RoleReportPermissionDTO {
     private Long roleId;
     private Long reportId;
     private String reportCode;
