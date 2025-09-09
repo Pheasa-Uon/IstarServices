@@ -1,21 +1,15 @@
 package com.istar.corebanking.service.administrator.usersmanagement.permission;
 
-import com.istar.corebanking.entity.administrator.feature.Feature;
 import com.istar.corebanking.entity.administrator.feature.MainMenu;
-import com.istar.corebanking.entity.administrator.feature.Reports;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.Role;
-import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleMainMenuPermission;
-import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleReportPermission;
 import com.istar.corebanking.repository.administrator.feature.FeatureRepository;
 import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
 import com.istar.corebanking.repository.administrator.feature.ReportRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleFeaturePermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleReportPermissionRepository;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.record.FeaturePermissionFlags;
 import com.istar.corebanking.service.administrator.usersmanagement.permission.record.MenuPermissionFlags;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.record.ReportPermissionFlags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
