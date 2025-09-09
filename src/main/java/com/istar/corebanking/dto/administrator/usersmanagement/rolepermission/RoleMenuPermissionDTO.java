@@ -1,6 +1,6 @@
 package com.istar.corebanking.dto.administrator.usersmanagement.rolepermission;
 
-public class RoleMainMenuPermissionDTO {
+public class RoleMenuPermissionDTO {
     private Long roleId;
     private Long mainMenuId;
     private Boolean isVisible;

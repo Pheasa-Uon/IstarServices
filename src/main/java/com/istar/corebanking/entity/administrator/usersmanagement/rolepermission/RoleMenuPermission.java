@@ -1,7 +1,7 @@
 package com.istar.corebanking.entity.administrator.usersmanagement.rolepermission;
 
 
-import com.istar.corebanking.entity.administrator.feature.MainMenu;
+import com.istar.corebanking.entity.administrator.feature.Menu;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "sys_role_menu_permissions",
         uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "main_menu_id"}))
 @Data
-public class RoleMainMenuPermission {
+public class RoleMenuPermission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class RoleMainMenuPermission {
 
     @ManyToOne(optional = false)
     //@JoinColumn(name = "main_menu_id", nullable = false)
-    private MainMenu mainMenu;
+    private Menu mainMenu;
 
     private Boolean isVisible;
     private Boolean bStatus;
@@ -38,8 +38,8 @@ public class RoleMainMenuPermission {
     public Role getRole() { return role; }
     public void setRole(Role role) { this.role = role; }
 
-    public MainMenu getMainMenu() { return mainMenu; }
-    public void setMainMenu(MainMenu mainMenu) { this.mainMenu = mainMenu; }
+    public Menu getMainMenu() { return mainMenu; }
+    public void setMainMenu(Menu mainMenu) { this.mainMenu = mainMenu; }
 
     public Boolean getIsVisible() { return isVisible; }
     public void setIsVisible(Boolean isVisible) { this.isVisible = isVisible; }

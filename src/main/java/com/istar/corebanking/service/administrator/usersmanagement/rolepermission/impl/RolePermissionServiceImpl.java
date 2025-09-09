@@ -1,21 +1,21 @@
 package com.istar.corebanking.service.administrator.usersmanagement.rolepermission.impl;
 
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleFeaturePermissionDTO;
-import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionDTO;
+import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleMenuPermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RoleReportPermissionDTO;
 import com.istar.corebanking.dto.administrator.usersmanagement.rolepermission.RolePermissionsDTO;
 import com.istar.corebanking.entity.administrator.feature.Feature;
-import com.istar.corebanking.entity.administrator.feature.MainMenu;
+import com.istar.corebanking.entity.administrator.feature.Menu;
 import com.istar.corebanking.entity.administrator.feature.Reports;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.Role;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleFeaturePermission;
-import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleMainMenuPermission;
+import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleMenuPermission;
 import com.istar.corebanking.entity.administrator.usersmanagement.rolepermission.RoleReportPermission;
 import com.istar.corebanking.repository.administrator.feature.FeatureRepository;
-import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
+import com.istar.corebanking.repository.administrator.feature.MenuRepository;
 import com.istar.corebanking.repository.administrator.feature.ReportRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleFeaturePermissionRepository;
-import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleMainMenuPermissionRepository;
+import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleMenuPermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleReportPermissionRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.rolepermission.RoleRepository;
 import com.istar.corebanking.service.administrator.usersmanagement.rolepermission.RolePermissionService;
@@ -44,10 +44,10 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     private RoleFeaturePermissionRepository roleFeaturePermissionRepository;
 
     @Autowired
-    private MainMenuRepository mainMenuRepository;
+    private MenuRepository mainMenuRepository;
 
     @Autowired
-    private RoleMainMenuPermissionRepository roleMainMenuPermissionRepository;
+    private RoleMenuPermissionRepository roleMainMenuPermissionRepository;
 
     @Autowired
     private ReportRepository reportRepository;
@@ -118,9 +118,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         result.setFeaturePermissions(featureDtos);
 
         // --- MainMenu Permissions ---
-        List<RoleMainMenuPermission> menuPerms = roleMainMenuPermissionRepository.findByRole(role);
-        List<RoleMainMenuPermissionDTO> menuDtos = menuPerms.stream().map(mp -> {
-            RoleMainMenuPermissionDTO dto = new RoleMainMenuPermissionDTO();
+        List<RoleMenuPermission> menuPerms = roleMainMenuPermissionRepository.findByRole(role);
+        List<RoleMenuPermissionDTO> menuDtos = menuPerms.stream().map(mp -> {
+            RoleMenuPermissionDTO dto = new RoleMenuPermissionDTO();
             dto.setRoleId(mp.getRole().getId());
             dto.setMainMenuId(mp.getMainMenu().getId());
             dto.setIsVisible(mp.getIsVisible());
@@ -212,7 +212,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 //    }
 
     public void savePermissionsBulk(List<RoleFeaturePermissionDTO> featurePermissions,
-                                    List<RoleMainMenuPermissionDTO> mainMenuPermissions,
+                                    List<RoleMenuPermissionDTO> mainMenuPermissions,
                                     List<RoleReportPermissionDTO> reportPermissions) {
 
         // --- Handle FeaturePermissionDTO ---
@@ -262,7 +262,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         }
 
         // --- Handle MainMenuPermissionDTO ---
-        for (RoleMainMenuPermissionDTO treeDto : mainMenuPermissions) {
+        for (RoleMenuPermissionDTO treeDto : mainMenuPermissions) {
             if (treeDto.getRoleId() == null || treeDto.getMainMenuId() == null) {
                 throw new IllegalArgumentException("Role ID and MainMenu ID must not be null");
             }
@@ -270,13 +270,13 @@ public class RolePermissionServiceImpl implements RolePermissionService {
             Role role = roleRepository.findById(treeDto.getRoleId())
                     .orElseThrow(() -> new RuntimeException("Role not found: " + treeDto.getRoleId()));
 
-            MainMenu mainMenu = mainMenuRepository.findById(treeDto.getMainMenuId())
+            Menu mainMenu = mainMenuRepository.findById(treeDto.getMainMenuId())
                     .orElseThrow(() -> new RuntimeException("MainMenu not found: " + treeDto.getMainMenuId()));
 
-            Optional<RoleMainMenuPermission> existingOpt =
+            Optional<RoleMenuPermission> existingOpt =
                     roleMainMenuPermissionRepository.findByRoleIdAndMainMenuId(role.getId(), mainMenu.getId());
 
-            RoleMainMenuPermission menuPermission = existingOpt.orElse(new RoleMainMenuPermission());
+            RoleMenuPermission menuPermission = existingOpt.orElse(new RoleMenuPermission());
             menuPermission.setRole(role);
             menuPermission.setMainMenu(mainMenu);
             menuPermission.setIsVisible(treeDto.getIsVisible());

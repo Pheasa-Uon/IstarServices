@@ -1,12 +1,12 @@
 package com.istar.corebanking.controller.administrator.usersmanagement.permission;
 
 
+import com.istar.corebanking.dto.administrator.usersmanagement.permission.MenuPermissionDTO;
 import com.istar.corebanking.entity.administrator.usersmanagement.user.User;
-import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
+import com.istar.corebanking.repository.administrator.feature.MenuRepository;
 import com.istar.corebanking.repository.administrator.usersmanagement.user.UserRepository;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.MainMenuPermissionService;
+import com.istar.corebanking.service.administrator.usersmanagement.permission.MenuPermissionService;
 import com.istar.corebanking.service.administrator.usersmanagement.permission.record.MenuPermissionFlags;
-import com.istar.corebanking.service.administrator.usersmanagement.permission.FeaturePermissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,19 +21,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MenuPermissionController {
 
-    private final MainMenuPermissionService permissionService;
+    private final MenuPermissionService permissionService;
     private final UserRepository userRepository;
-    private final MainMenuRepository mainMenuRepository;
 
     @GetMapping("/me")
-    public Map<String, MenuPermissionFlags> getMyMenuPermissions(@AuthenticationPrincipal UserDetails userDetails) {
+    public Map<String, MenuPermissionDTO> getMyMenuPermissions(@AuthenticationPrincipal UserDetails userDetails) {
 
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         boolean isAdmin = user.isAdmin() || user.getUsername().equals("admin");
 
-        return isAdmin ? permissionService.getAllMenuPermissions() :
-                        permissionService.mergeByMenu(user.getRoles());
+        return isAdmin ? permissionService.getAllMenuPermissions() : permissionService.mergeByMenu(user.getRoles());
     }
+
 }

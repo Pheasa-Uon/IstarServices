@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "sys_main_menu")
 @Getter
 @Setter
-public class MainMenu {
+public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +44,11 @@ public class MainMenu {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private MainMenu parent;
+    private Menu parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<MainMenu> children = new ArrayList<>();
+    private List<Menu> children = new ArrayList<>();
 
 
 }

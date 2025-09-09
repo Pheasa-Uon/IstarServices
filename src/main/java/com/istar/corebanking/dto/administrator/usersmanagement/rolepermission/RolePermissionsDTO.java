@@ -5,7 +5,7 @@ import java.util.List;
 public class RolePermissionsDTO {
 
     private List<RoleFeaturePermissionDTO> featurePermissions;
-    private List<RoleMainMenuPermissionDTO> mainMenuPermissions;
+    private List<RoleMenuPermissionDTO> mainMenuPermissions;
     private List<RoleReportPermissionDTO> reportPermissions;
 
     public List<RoleFeaturePermissionDTO> getFeaturePermissions() {
@@ -15,10 +15,10 @@ public class RolePermissionsDTO {
         this.featurePermissions = featurePermissions;
     }
 
-    public List<RoleMainMenuPermissionDTO> getMainMenuPermissions() {
+    public List<RoleMenuPermissionDTO> getMainMenuPermissions() {
         return mainMenuPermissions;
     }
-    public void setMainMenuPermissions(List<RoleMainMenuPermissionDTO> mainMenuPermissions) {
+    public void setMainMenuPermissions(List<RoleMenuPermissionDTO> mainMenuPermissions) {
         this.mainMenuPermissions = mainMenuPermissions;
     }
 

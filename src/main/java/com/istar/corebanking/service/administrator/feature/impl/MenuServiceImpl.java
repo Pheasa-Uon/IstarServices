@@ -1,9 +1,9 @@
 package com.istar.corebanking.service.administrator.feature.impl;
 
-import com.istar.corebanking.dto.administrator.feature.MainMenuTreeDTO;
-import com.istar.corebanking.entity.administrator.feature.MainMenu;
-import com.istar.corebanking.repository.administrator.feature.MainMenuRepository;
-import com.istar.corebanking.service.administrator.feature.MainMenuService;
+import com.istar.corebanking.dto.administrator.feature.MenuTreeDTO;
+import com.istar.corebanking.entity.administrator.feature.Menu;
+import com.istar.corebanking.repository.administrator.feature.MenuRepository;
+import com.istar.corebanking.service.administrator.feature.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +13,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MainMenuServiceImpl implements MainMenuService {
+public class MenuServiceImpl implements MenuService {
 
     @Autowired
-    private MainMenuRepository mainMenuRepository;
+    private MenuRepository mainMenuRepository;
 
-    public MainMenuServiceImpl() {}
+    public MenuServiceImpl() {}
 
-    public List<MainMenuTreeDTO> getAllMainMenuTree() {
-        List<MainMenu> mainMenus = mainMenuRepository.findByParentIsNull();
+    public List<MenuTreeDTO> getAllMainMenuTree() {
+        List<Menu> mainMenus = mainMenuRepository.findByParentIsNull();
         return mainMenus.stream().map(this::convertToTreeDTO).collect(Collectors.toList());
     }
 
-    private MainMenuTreeDTO convertToTreeDTO(MainMenu mainMenu) {
-        MainMenuTreeDTO dto = new MainMenuTreeDTO();
+    private MenuTreeDTO convertToTreeDTO(Menu mainMenu) {
+        MenuTreeDTO dto = new MenuTreeDTO();
         dto.setId(mainMenu.getId());
         dto.setName(mainMenu.getName());
         dto.setCode(mainMenu.getCode());
@@ -37,16 +37,16 @@ public class MainMenuServiceImpl implements MainMenuService {
         dto.setDescription(mainMenu.getDescription());
 
         if (mainMenu.getChildren() != null && !mainMenu.getChildren().isEmpty()) {
-            List<MainMenuTreeDTO> childDTOs = mainMenu.getChildren().stream()
+            List<MenuTreeDTO> childDTOs = mainMenu.getChildren().stream()
                     .map(this::convertToTreeDTO).collect(Collectors.toList());
             dto.setChildren(childDTOs);
         }
         return dto;
     }
 
-    public List<MainMenu> getAllMainMenu(){return mainMenuRepository.findAll();}
+    public List<Menu> getAllMainMenu(){return mainMenuRepository.findAll();}
 
-    public MainMenu createdMainMenu(MainMenu mainMenu){
+    public Menu createdMainMenu(Menu mainMenu){
         mainMenu.setCreatedAt(LocalDateTime.now());
         mainMenu.setUpdatedAt(LocalDateTime.now());
         mainMenu.setBStatus(true);
@@ -54,7 +54,7 @@ public class MainMenuServiceImpl implements MainMenuService {
         return mainMenuRepository.save(mainMenu);
     }
 
-    public MainMenu updatedMainMenu(Long id,MainMenu updated){
+    public Menu updatedMainMenu(Long id, Menu updated){
         return mainMenuRepository.findById(id).map(mainMenu -> {
             mainMenu.setCode(updated.getCode());
             mainMenu.setName(updated.getName());
@@ -71,7 +71,7 @@ public class MainMenuServiceImpl implements MainMenuService {
         mainMenuRepository.deleteById(id);
     }
 
-    public Optional<MainMenu> getMainMenuById(Long id) {
+    public Optional<Menu> getMainMenuById(Long id) {
         return mainMenuRepository.findById(id);
     }
 }

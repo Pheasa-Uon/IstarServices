@@ -3,7 +3,7 @@ package com.istar.corebanking.dto.administrator.feature;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenuTreeDTO {
+public class MenuTreeDTO {
     private Long id;
     private String code;
     private String name;
@@ -12,7 +12,7 @@ public class MainMenuTreeDTO {
     private Boolean active; // clearer than bStatus
     private Integer displayOrder; // safer than 'order'
     private String description; // singular for consistency
-    private List<MainMenuTreeDTO> children = new ArrayList<>();
+    private List<MenuTreeDTO> children = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -39,6 +39,6 @@ public class MainMenuTreeDTO {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public List<MainMenuTreeDTO> getChildren() { return children; }
-    public void setChildren(List<MainMenuTreeDTO> children) { this.children = children; }
+    public List<MenuTreeDTO> getChildren() { return children; }
+    public void setChildren(List<MenuTreeDTO> children) { this.children = children; }
 }

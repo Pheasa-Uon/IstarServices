@@ -1,8 +1,8 @@
 package com.istar.corebanking.controller.administrator.feature;
 
-import com.istar.corebanking.dto.administrator.feature.MainMenuTreeDTO;
-import com.istar.corebanking.entity.administrator.feature.MainMenu;
-import com.istar.corebanking.service.administrator.feature.MainMenuService;
+import com.istar.corebanking.dto.administrator.feature.MenuTreeDTO;
+import com.istar.corebanking.entity.administrator.feature.Menu;
+import com.istar.corebanking.service.administrator.feature.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,28 +12,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/coregateways/mainmenu")
-public class MainMenuController {
+public class MenuController {
 
     @Autowired
-    private MainMenuService mainMenuService;
+    private MenuService mainMenuService;
 
     @GetMapping("/treetable")
-    public ResponseEntity<List<MainMenuTreeDTO>> getAllMainMenuTree() {
+    public ResponseEntity<List<MenuTreeDTO>> getAllMainMenuTree() {
         return ResponseEntity.ok(mainMenuService.getAllMainMenuTree());
     }
 
     @GetMapping
-    public ResponseEntity<List<MainMenu>> getAllMainMenu(){ return ResponseEntity.ok(mainMenuService.getAllMainMenu());}
+    public ResponseEntity<List<Menu>> getAllMainMenu(){ return ResponseEntity.ok(mainMenuService.getAllMainMenu());}
 
     @GetMapping("/{id}")
-    public ResponseEntity<MainMenu> getMainMenuById(@PathVariable Long id) {
+    public ResponseEntity<Menu> getMainMenuById(@PathVariable Long id) {
         return mainMenuService.getMainMenuById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public MainMenu createdMainMenu(@RequestBody MainMenu mainMenu){
+    public Menu createdMainMenu(@RequestBody Menu mainMenu){
         mainMenu.setCreatedAt(LocalDateTime.now());
         mainMenu.setUpdatedAt(LocalDateTime.now());
         mainMenu.setBStatus(true);
@@ -42,7 +42,7 @@ public class MainMenuController {
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<MainMenu> updatedMainMenu(@PathVariable Long id, @RequestBody MainMenu mainMenu){
+    public ResponseEntity<Menu> updatedMainMenu(@PathVariable Long id, @RequestBody Menu mainMenu){
         return ResponseEntity.ok(mainMenuService.updatedMainMenu(id, mainMenu));
     }
     @DeleteMapping("/{id}")
